@@ -17,7 +17,7 @@
                     </div>
                     <div id="search-erase">
                         <button class="search-btn">
-                            <span class="fa fa-search"></span>
+                            <i class="fas fa-magnifying-glass"></i>
                         </button>
                         <button class="erase-btn" @click="erase">
                             <span class="fa fa-eraser"></span>
