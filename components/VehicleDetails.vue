@@ -1,53 +1,55 @@
 <template>
-    <div class="form-background"></div>
-    <div id="vehicle-details">
-        <div id="details-header">
-            <h2 class="details-header-title">Detalhes do veículo</h2>
-            <span class="close-form" @click="close">X</span>
-        </div>
-        <div id="details-body">
-            <div id="details-grid">
-                <div id="plate-grid">
-                    <span class="fa fa-car"></span>
-                    <span>
-                        <p id="plate-grid-p">{{ vehicleToSeeDetails.plate }}</p>
-                        <p class="grid-element-p">Frota 101</p>
-                    </span>
-                </div>
-                <div id="brand-model-grid">
-                    <p class="grid-element-title">Marca/Modelo</p>
-                    <p class="grid-element-p">{{ vehicleToSeeDetails.brand }} {{ vehicleToSeeDetails.model }}</p>
-                </div>
-                <div id="year-grid">
-                    <p class="grid-element-title">Ano</p>
-                    <p class="grid-element-p">{{ vehicleToSeeDetails.year }}</p>
-                </div>
-                <div id="color-grid">
-                    <p class="grid-element-title">Cor</p>
-                    <p class="grid-element-p">{{ vehicleToSeeDetails.color }}</p>
-                </div>
-                <div id="purpose-grid">
-                    <p class="grid-element-title">Propósito de uso</p>
-                    <p class="grid-element-p">{{ vehicleToSeeDetails.purpose }}</p>
-                </div>
-                <div id="zero-grid">
-                    <p class="grid-element-title">Zero-quilômetro?</p>
-                    <p class="grid-element-p">{{ vehicleToSeeDetails.zero ? "Sim" : "Não" }}</p>
-                </div>
-                <div id="confort-level-grid">
-                    <p class="grid-element-title">Nível de conforto</p>
-                    <p class="grid-element-p">{{ vehicleToSeeDetails.confortLevel }} <span class="fa fa-star"></span></p>
-                </div>
-                <div id="latitude-grid">
-                    <p class="grid-element-title">Latitude</p>
-                    <p class="grid-element-p">{{ vehicleToSeeDetails.latitude }}</p>
-                </div>
-                <div id="longitude-grid">
-                    <p class="grid-element-title">Longitude</p>
-                    <p class="grid-element-p">{{ vehicleToSeeDetails.longitude }}</p>
-                </div>
+    <div>
+        <div class="form-background"></div>
+        <div id="vehicle-details">
+            <div id="details-header">
+                <h2 class="details-header-title">Detalhes do veículo</h2>
+                <span class="close-form" @click="close">X</span>
             </div>
-            <MapView :latitude="vehicleToSeeDetails.latitude" :longitude="vehicleToSeeDetails.longitude" :zoom="17" />
+            <div id="details-body">
+                <div id="details-grid">
+                    <div id="plate-grid">
+                        <span class="fa fa-car"></span>
+                        <span>
+                            <p id="plate-grid-p">{{ vehicleToSeeDetails.plate }}</p>
+                            <p class="grid-element-p">Frota 101</p>
+                        </span>
+                    </div>
+                    <div id="brand-model-grid">
+                        <p class="grid-element-title">Marca/Modelo</p>
+                        <p class="grid-element-p">{{ vehicleToSeeDetails.brand }} {{ vehicleToSeeDetails.model }}</p>
+                    </div>
+                    <div id="year-grid">
+                        <p class="grid-element-title">Ano</p>
+                        <p class="grid-element-p">{{ vehicleToSeeDetails.year }}</p>
+                    </div>
+                    <div id="color-grid">
+                        <p class="grid-element-title">Cor</p>
+                        <p class="grid-element-p">{{ vehicleToSeeDetails.color }}</p>
+                    </div>
+                    <div id="purpose-grid">
+                        <p class="grid-element-title">Propósito de uso</p>
+                        <p class="grid-element-p">{{ vehicleToSeeDetails.purpose }}</p>
+                    </div>
+                    <div id="zero-grid">
+                        <p class="grid-element-title">Zero-quilômetro?</p>
+                        <p class="grid-element-p">{{ vehicleToSeeDetails.zero ? "Sim" : "Não" }}</p>
+                    </div>
+                    <div id="confort-level-grid">
+                        <p class="grid-element-title">Nível de conforto</p>
+                        <p class="grid-element-p">{{ vehicleToSeeDetails.confortLevel }} <span class="fa fa-star"></span></p>
+                    </div>
+                    <div id="latitude-grid">
+                        <p class="grid-element-title">Latitude</p>
+                        <p class="grid-element-p">{{ vehicleToSeeDetails.latitude }}</p>
+                    </div>
+                    <div id="longitude-grid">
+                        <p class="grid-element-title">Longitude</p>
+                        <p class="grid-element-p">{{ vehicleToSeeDetails.longitude }}</p>
+                    </div>
+                </div>
+                <MapView :latitude="vehicleToSeeDetails.latitude" :longitude="vehicleToSeeDetails.longitude" :zoom="17" />
+            </div>
         </div>
     </div>
 </template>

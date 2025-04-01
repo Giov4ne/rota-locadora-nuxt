@@ -1,31 +1,33 @@
 <template>
-    <MyHeader></MyHeader>
-    <div class="container">
-        <section id="filters-section">
-            <div class="custom-field">
-                <label for="plate">Placa</label>
-                <input type="text" class="inputs" name="plate" placeholder="Digite a placa do veículo" v-model="plateInput">
-            </div>
-            <div id="search-erase">
-                <button class="search-btn">
-                    <span class="fa fa-search"></span>
-                </button>
-                <button class="erase-btn" @click="erase">
-                    <span class="fa fa-eraser"></span>
-                </button>
-            </div>
-            <span class="fa fa-filter filter-btn"></span>
-        </section>
-        <main>
-            <ul v-if="activities.length" id="activity-list">
-                <li v-for="(activity, index) in filteredActivities" :key="index">
-                    <span :class="getActivityIcon(activity.type)"></span>
-                    Veículo <strong>{{ activity.plate }}</strong> {{ getActivityTypeToString(activity.type) }} em {{ activity.date }} às {{ activity.time }}
-                </li>
-            </ul>
-            <p v-else id="no-history-activity">Não há veículos cadastrados até o momento...</p>
-        </main>
-        <MyPagination v-if="activities.length >= 10"></MyPagination>
+    <div class="meucard">
+        <MyHeader></MyHeader>
+        <div class="container">
+            <section id="filters-section">
+                <div class="custom-field">
+                    <label for="plate">Placa</label>
+                    <input type="text" class="inputs" name="plate" placeholder="Digite a placa do veículo" v-model="plateInput">
+                </div>
+                <div id="search-erase">
+                    <button class="search-btn">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="erase-btn" @click="erase">
+                        <span class="fa fa-eraser"></span>
+                    </button>
+                </div>
+                <span class="fa fa-filter filter-btn"></span>
+            </section>
+            <main>
+                <ul v-if="activities.length" id="activity-list">
+                    <li v-for="(activity, index) in filteredActivities" :key="index">
+                        <span :class="getActivityIcon(activity.type)"></span>
+                        Veículo <strong>{{ activity.plate }}</strong> {{ getActivityTypeToString(activity.type) }} em {{ activity.date }} às {{ activity.time }}
+                    </li>
+                </ul>
+                <p v-else id="no-history-activity">Não há veículos cadastrados até o momento...</p>
+            </main>
+            <MyPagination v-if="activities.length >= 10"></MyPagination>
+        </div>
     </div>
 </template>
 

@@ -1,14 +1,16 @@
 <template>
+  <div>
     <header>
-    <nav>
-      <ul>
-        <li><NuxtLink to="/login">Login</NuxtLink></li>
-        <li><NuxtLink to="/signup">Sign up</NuxtLink></li>
-        <li><NuxtLink to="/home">Home</NuxtLink></li>
-        <li><NuxtLink to="/activity-history">Activities</NuxtLink></li>
-      </ul>
-    </nav>
-  </header>
+      <nav>
+        <ul>
+          <li><NuxtLink to="/login">Login</NuxtLink></li>
+          <li><NuxtLink to="/signup">Sign up</NuxtLink></li>
+          <li><NuxtLink to="/home">Home</NuxtLink></li>
+          <li><NuxtLink to="/activity-history">Activities</NuxtLink></li>
+        </ul>
+      </nav>
+    </header>
+  </div>
 </template>
 
 <style>

@@ -1,90 +1,92 @@
 <template>
-    <MyHeader></MyHeader>
-    <div class="container">
-        <section id="register-and-filters">
-            <button id="register-vehicle-btn" @click="openVehicleEditRegistration">Cadastrar Veículo</button>
-            <div id="filters">
-                <div class="dropdown-boxes">
-                    <BrandsDropdown ref="brandsDropdownRef" :checkbox=true v-model="selectedBrands"></BrandsDropdown>
+    <div>
+        <MyHeader></MyHeader>
+        <div class="container">
+            <section id="register-and-filters">
+                <button id="register-vehicle-btn" @click="openVehicleEditRegistration">Cadastrar Veículo</button>
+                <div id="filters">
+                    <div class="dropdown-boxes">
+                        <BrandsDropdown ref="brandsDropdownRef" :checkbox=true v-model="selectedBrands"></BrandsDropdown>
+                    </div>
+                    <div class="dropdown-boxes">
+                        <PurposesDropdown ref="purposesDropdownRef" v-model="selectedPurpose"></PurposesDropdown>
+                    </div>
+                    <div class="custom-field">
+                        <label for="plate">Placa</label>
+                        <input type="text" class="inputs" name="plate" placeholder="Digite a placa ou a cor do veículo" v-model="plateInput">
+                    </div>
+                    <div id="search-erase">
+                        <button class="search-btn">
+                            <span class="fa fa-search"></span>
+                        </button>
+                        <button class="erase-btn" @click="erase">
+                            <span class="fa fa-eraser"></span>
+                        </button>
+                    </div>
+                    <span class="fa fa-filter filter-btn"></span>
                 </div>
-                <div class="dropdown-boxes">
-                    <PurposesDropdown ref="purposesDropdownRef" v-model="selectedPurpose"></PurposesDropdown>
-                </div>
-                <div class="custom-field">
-                    <label for="plate">Placa</label>
-                    <input type="text" class="inputs" name="plate" placeholder="Digite a placa ou a cor do veículo" v-model="plateInput">
-                </div>
-                <div id="search-erase">
-                    <button class="search-btn">
-                        <span class="fa fa-search"></span>
-                    </button>
-                    <button class="erase-btn" @click="erase">
-                        <span class="fa fa-eraser"></span>
-                    </button>
-                </div>
-                <span class="fa fa-filter filter-btn"></span>
-            </div>
-        </section>
-        <main>
-            <table v-if="filteredVehicles.length">
-                <thead>
-                    <tr>
-                        <th>Placa</th>
-                        <th>Marca/Modelo</th>
-                        <th>Ano</th>
-                        <th>Cor</th>
-                        <th>Propósito de uso</th>
-                        <th>Zero-quilômetro?</th>
-                        <th>Nível de conforto</th>
-                        <th>Local de repouso (lat, long)</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(vehicle, index) in filteredVehicles" :key="index">
-                        <td>{{ vehicle.plate }}</td>
-                        <td>{{ vehicle.brand }} {{ vehicle.model }}</td>
-                        <td>{{ vehicle.year }}</td>
-                        <td>{{ vehicle.color }}</td>
-                        <td>{{ vehicle.purpose }}</td>
-                        <td>{{ vehicle.zero ? 'Sim' : 'Não' }}</td>
-                        <td>{{ vehicle.confortLevel }} <span class="fa fa-star"></span></td>
-                        <td>{{ vehicle.latitude }}, {{ vehicle.longitude }}</td>
-                        <td>
-                            <div class="options-dropdown-container" ref="dropdowns">
-                                <span class="ellipsis" @click="optionsToggleDropdown(index)">...</span>
-                                <transition name="fade">
-                                    <div v-if="optionsIsOpen === index" class="options-dropdown">
-                                        <ul>
-                                            <li @click="vehicleDetails(vehicle)">Detalhes</li>
-                                            <li @click="editVehicle(vehicle)">Editar</li>
-                                            <li @click="deleteVehicle(vehicle.plate)">Deletar</li>
-                                        </ul>
-                                    </div>
-                                </transition>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <p v-else id="no-vehicles-msg">Nenhum veículo encontrado...</p>
-        </main>
-        <VehicleEditRegistration 
-            v-if="vehicleEditRegistrationIsOpen" 
-            :vehicle="vehicleToEdit" 
-            :allVehicles="vehicles"
-            :allActivities="activities"
-            @onClose="closeVehicleEditRegistration"
-            >
-        </VehicleEditRegistration>
-        <VehicleDetails
-            v-if="vehicleDetailsIsOpen"
-            :vehicle="vehicleToSeeDetails"
-            @onCloseDetails="closeVehicleDetails"
-        ></VehicleDetails>
-        <MyPagination v-if="filteredVehicles.length >= 10"></MyPagination>
+            </section>
+            <main>
+                <table v-if="filteredVehicles.length">
+                    <thead>
+                        <tr>
+                            <th>Placa</th>
+                            <th>Marca/Modelo</th>
+                            <th>Ano</th>
+                            <th>Cor</th>
+                            <th>Propósito de uso</th>
+                            <th>Zero-quilômetro?</th>
+                            <th>Nível de conforto</th>
+                            <th>Local de repouso (lat, long)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(vehicle, index) in filteredVehicles" :key="index">
+                            <td>{{ vehicle.plate }}</td>
+                            <td>{{ vehicle.brand }} {{ vehicle.model }}</td>
+                            <td>{{ vehicle.year }}</td>
+                            <td>{{ vehicle.color }}</td>
+                            <td>{{ vehicle.purpose }}</td>
+                            <td>{{ vehicle.zero ? 'Sim' : 'Não' }}</td>
+                            <td>{{ vehicle.confortLevel }} <span class="fa fa-star"></span></td>
+                            <td>{{ vehicle.latitude }}, {{ vehicle.longitude }}</td>
+                            <td>
+                                <div class="options-dropdown-container" ref="dropdowns">
+                                    <span class="ellipsis" @click="optionsToggleDropdown(index)">...</span>
+                                    <transition name="fade">
+                                        <div v-if="optionsIsOpen === index" class="options-dropdown">
+                                            <ul>
+                                                <li @click="vehicleDetails(vehicle)">Detalhes</li>
+                                                <li @click="editVehicle(vehicle)">Editar</li>
+                                                <li @click="deleteVehicle(vehicle.plate)">Deletar</li>
+                                            </ul>
+                                        </div>
+                                    </transition>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p v-else id="no-vehicles-msg">Nenhum veículo encontrado...</p>
+            </main>
+            <VehicleEditRegistration 
+                v-if="vehicleEditRegistrationIsOpen" 
+                :vehicle="vehicleToEdit" 
+                :allVehicles="vehicles"
+                :allActivities="activities"
+                @onClose="closeVehicleEditRegistration"
+                >
+            </VehicleEditRegistration>
+            <VehicleDetails
+                v-if="vehicleDetailsIsOpen"
+                :vehicle="vehicleToSeeDetails"
+                @onCloseDetails="closeVehicleDetails"
+            ></VehicleDetails>
+            <MyPagination v-if="filteredVehicles.length >= 10"></MyPagination>
+        </div>
+        <span v-if="successMsg !== ''" class="success-message">{{ successMsg }}</span>
     </div>
-    <span v-if="successMsg !== ''" class="success-message">{{ successMsg }}</span>
 </template>
 
 <script>

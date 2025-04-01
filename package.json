@@ -8,6 +8,7 @@
     "start": "nuxt start"
   },
   "dependencies": {
+    "leaflet": "^1.9.4",
     "nuxt": "2.17"
   }
 }
