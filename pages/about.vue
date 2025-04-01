@@ -1,6 +1,6 @@
 <template>
     <div>
-        about
+        aboutk
         <NuxtLink to="/"><-</NuxtLink>
     </div>
 </template>
