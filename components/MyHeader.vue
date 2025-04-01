@@ -56,7 +56,7 @@
         },
 
         mounted(){
-            this.username = JSON.parse(localStorage.getItem('loggedUser')).username;
+            this.username = JSON.parse(localStorage.getItem('loggedUser'))?.username;
         }
     }
 </script>
