@@ -36,7 +36,7 @@ export default {
 
         const customIcon = L.divIcon({
             className: "custom-marker",
-            html: '<span class="fa fa-location-dot fa-2x" style="color: #007DF0; font-size: 38px; transform: translate(-5px, -5px);"></span>',
+            html: '<i class="fas fa-location-dot fa-2x" style="color: #007DF0; font-size: 38px; transform: translate(-5px, -5px);"></i>',
             iconSize: [32, 32],
             iconAnchor: [16, 32]
         });

@@ -17,7 +17,11 @@ export default {
         'faEraser',
         'faFilter',
         'faCar',
-        'faRightFromBracket'
+        'faRightFromBracket',
+        'faStar',
+        'faLocationDot',
+        'faEye',
+        'faEyeSlash'
       ]
     }
   },

@@ -200,6 +200,18 @@
     background-color: #4CAF50;
   }
 
+  .hide-password-btn{ 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+  }
+
+  .hide-password-icon{
+    width: 32px;
+  }
+
   @media screen and (max-width: 550px){
     #login-form, #signin-form{
       width: 92%;
