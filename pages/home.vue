@@ -26,6 +26,16 @@
                     </div>
                     <i class="fas fa-filter filter-btn"></i>
                 </div>
+            <!-- <v-btn
+                elevation="2"
+                outlined
+                :loading="true"
+                @click=""
+                >
+                <template #counter="{ props: { dark } }">
+                    carregando...
+                </template>
+            </v-btn> -->
             </section>
             <main>
                 <table v-if="filteredVehicles.length">
