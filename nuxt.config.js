@@ -2,7 +2,9 @@ export default {
   ssr: false, // Set to true for SSR
   target: 'static', // or 'server'
   router: {
-    middleware: ['authentication']
+    middleware: [
+      'authentication'
+    ]
   },
   buildModules: [
     '@nuxtjs/fontawesome'
@@ -11,8 +13,18 @@ export default {
     component: 'fa',
     icons: {
       solid: [
-        'faMagnifyingGlass'
+        'faMagnifyingGlass',
+        'faEraser',
+        'faFilter',
+        'faCar',
+        'faRightFromBracket'
       ]
     }
-  }
+  },
+  plugins: [
+    { 
+      src: '@/plugins/fontawesome', 
+      ssr: false 
+    }
+  ]
 }

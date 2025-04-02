@@ -1,6 +1,6 @@
 <template>
     <div>
-        <MyHeader></MyHeader>
+        <!-- <MyHeader></MyHeader> -->
         <div class="container">
             <section id="register-and-filters">
                 <button id="register-vehicle-btn" @click="openVehicleEditRegistration">Cadastrar Veículo</button>
@@ -18,12 +18,13 @@
                     <div id="search-erase">
                         <button class="search-btn">
                             <i class="fas fa-magnifying-glass"></i>
+                            
                         </button>
                         <button class="erase-btn" @click="erase">
-                            <span class="fa fa-eraser"></span>
+                            <i class="fas fa-eraser"></i>
                         </button>
                     </div>
-                    <span class="fa fa-filter filter-btn"></span>
+                    <i class="fas fa-filter filter-btn"></i>
                 </div>
             </section>
             <main>
@@ -98,6 +99,7 @@ import VehicleDetails from '../components/VehicleDetails.vue';
 import MyPagination from '../components/MyPagination.vue';
 
     export default{
+        
         name: 'home',
         components: {
             MyHeader,

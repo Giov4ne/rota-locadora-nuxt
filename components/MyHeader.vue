@@ -2,7 +2,7 @@
     <header>
         <nav id="header-navigation">
             <NuxtLink to="/home" id="rl-logo">
-                <span class="fa fa-car" id="logo-icon"></span>
+                <i class="fas fa-car" id="logo-icon"></i>
                 <span id="logo-text">RotaLocadora</span>
             </NuxtLink>
             <div id="pages">
@@ -19,7 +19,7 @@
                 <img src="../assets/user.png" alt="user image" id="user-img" @click="exitToggleDropdown">
                 <transition name="fade">
                     <div v-if="exitIsOpen" @click="logout" class="exit-dropdown">
-                        <span class="fa fa-right-from-bracket"></span>
+                        <i class="fas fa-right-from-bracket"></i>
                         <span>Sair</span>
                     </div>
                 </transition>
@@ -99,7 +99,6 @@
         color: #fff;
         font-size: 28px;
         background-color: #007DF0;
-        height: 100%;
         padding: 2px 4px 2px 2px;
     }
 
