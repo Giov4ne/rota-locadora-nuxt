@@ -32,6 +32,7 @@
 <script>
     export default {
         name: 'signup',
+        layout: 'empty',
         data() {
             return {
                 username: '',

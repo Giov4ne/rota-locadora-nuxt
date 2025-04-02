@@ -8,42 +8,42 @@
             </div>
             <div class="form-body">
                 <div class="custom-field" id="plate">
-                    <label for="plate">Placa</label>
-                    <input v-model="vehicleToEdit.plate" disabled type="text" class="inputs" name="plate">
+                    <label for="plate-e">Placa</label>
+                    <input v-model="vehicleToEdit.plate" disabled type="text" class="inputs" name="plate" id="plate-e">
                 </div>
                 <div id="brand">
                     <BrandsDropdown :checkbox=false v-model="vehicleToEdit.brand" @click.prevent></BrandsDropdown>
                 </div> 
                 <div class="custom-field" id="model">
-                    <label for="model">Modelo</label>
-                    <input v-model="vehicleToEdit.model" type="text" class="inputs" name="model" placeholder="Digite o modelo do veículo">
+                    <label for="model-e">Modelo</label>
+                    <input v-model="vehicleToEdit.model" type="text" class="inputs" name="model" placeholder="Digite o modelo do veículo" id="model-e">
                 </div>
                 <div class="custom-field" id="year">
-                    <label for="year">Ano</label>
-                    <input v-model="vehicleToEdit.year" @input="validateYear" minlength="4" maxlength="4" type="text" class="inputs" name="year" placeholder="Selecione o ano do veículo">
+                    <label for="year-e">Ano</label>
+                    <input v-model="vehicleToEdit.year" @input="validateYear" minlength="4" maxlength="4" type="text" class="inputs" name="year" placeholder="Selecione o ano do veículo" id="year-e">
                 </div>
                 <div class="custom-field" id="color">
-                    <label for="color">Cor</label>
-                    <input v-model="vehicleToEdit.color" type="text" class="inputs" name="color" placeholder="Digite a cor do veículo">
+                    <label for="color-e">Cor</label>
+                    <input v-model="vehicleToEdit.color" type="text" class="inputs" name="color" placeholder="Digite a cor do veículo" id="color-e">
                 </div>
                 <div id="purpose">
                     <PurposesDropdown v-model="vehicleToEdit.purpose" @click.prevent></PurposesDropdown>
                 </div>
                 <p id="resting-place">Local de repouso do veículo</p>
                 <div class="custom-field" id="latitude">
-                    <label for="latitude">Latitude</label>
-                    <input v-model="vehicleToEdit.latitude" @input="validateLatitude" type="text" class="inputs" name="latitude" placeholder="Digite a latitude">
+                    <label for="latitude-e">Latitude</label>
+                    <input v-model="vehicleToEdit.latitude" @input="validateLatitude" type="text" class="inputs" name="latitude" placeholder="Digite a latitude" id="latitude-e">
                 </div>
                 <div class="custom-field" id="longitude">
-                    <label for="longitude">Longitude</label>
-                    <input v-model="vehicleToEdit.longitude" @input="validateLongitude" type="text" class="inputs" name="longitude" placeholder="Digite a longitude">
+                    <label for="longitude-e">Longitude</label>
+                    <input v-model="vehicleToEdit.longitude" @input="validateLongitude" type="text" class="inputs" name="longitude" placeholder="Digite a longitude" id="longitude-e">
                 </div>
                 <div id="confort-level">
                     <p id="confort-level-p">Nível de conforto do veículo</p>
                     <StarRating v-model="vehicleToEdit.confortLevel" />
                 </div>
-                <label id="zero">
-                    <input type="checkbox" v-model="vehicleToEdit.zero" name="zero">
+                <label id="zero" for="zero-e">
+                    <input type="checkbox" v-model="vehicleToEdit.zero" name="zero" id="zero-e">
                     Veículo zero-quilômetro
                 </label>
                 <input type="submit" id="register-vehicle-form-btn" value="Salvar">
@@ -57,42 +57,42 @@
             </div>
             <div class="form-body">
                 <div class="custom-field" id="plate">
-                    <label for="plate">Placa</label>
-                    <input v-model="newVehicle.plate" @input="formatPlate" minlength="8" maxlength="8" type="text" class="inputs" name="plate" required placeholder="Digite a placa do veículo">
+                    <label for="plate-c">Placa</label>
+                    <input v-model="newVehicle.plate" @input="formatPlate" minlength="8" maxlength="8" type="text" class="inputs" name="plate" required placeholder="Digite a placa do veículo" id="plate-c">
                 </div>
                 <div id="brand">
                     <BrandsDropdown :checkbox=false v-model="newVehicle.brand"></BrandsDropdown>
                 </div> 
                 <div class="custom-field" id="model">
-                    <label for="model">Modelo</label>
-                    <input v-model="newVehicle.model" type="text" class="inputs" name="model" required placeholder="Digite o modelo do veículo">
+                    <label for="model-c">Modelo</label>
+                    <input v-model="newVehicle.model" type="text" class="inputs" name="model" required placeholder="Digite o modelo do veículo" id="model-c">
                 </div>
                 <div class="custom-field" id="year">
-                    <label for="year">Ano</label>
-                    <input v-model="newVehicle.year" @input="validateYear" minlength="4" maxlength="4" type="text" class="inputs" name="year" required placeholder="Selecione o ano do veículo">
+                    <label for="year-c">Ano</label>
+                    <input v-model="newVehicle.year" @input="validateYear" minlength="4" maxlength="4" type="text" class="inputs" name="year" required placeholder="Selecione o ano do veículo" id="year-c">
                 </div>
                 <div class="custom-field" id="color">
-                    <label for="color">Cor</label>
-                    <input v-model="newVehicle.color" type="text" class="inputs" name="color" required placeholder="Digite a cor do veículo">
+                    <label for="color-c">Cor</label>
+                    <input v-model="newVehicle.color" type="text" class="inputs" name="color" required placeholder="Digite a cor do veículo" id="color-c">
                 </div>
                 <div id="purpose">
                     <PurposesDropdown v-model="newVehicle.purpose"></PurposesDropdown>
                 </div>
                 <p id="resting-place">Local de repouso do veículo</p>
                 <div class="custom-field" id="latitude">
-                    <label for="latitude">Latitude</label>
-                    <input v-model="newVehicle.latitude" @input="validateLatitude" type="text" class="inputs" name="latitude" required placeholder="Digite a latitude">
+                    <label for="latitude-c">Latitude</label>
+                    <input v-model="newVehicle.latitude" @input="validateLatitude" type="text" class="inputs" name="latitude" required placeholder="Digite a latitude" id="latitude-c">
                 </div>
                 <div class="custom-field" id="longitude">
-                    <label for="longitude">Longitude</label>
-                    <input v-model="newVehicle.longitude" @input="validateLongitude" type="text" class="inputs" name="longitude" required placeholder="Digite a longitude">
+                    <label for="longitude-c">Longitude</label>
+                    <input v-model="newVehicle.longitude" @input="validateLongitude" type="text" class="inputs" name="longitude" required placeholder="Digite a longitude" id="longitude-c">
                 </div>
                 <div id="confort-level">
                     <p id="confort-level-p">Nível de conforto do veículo</p>
                     <StarRating v-model="newVehicle.confortLevel"></StarRating>
                 </div>
-                <label id="zero">
-                    <input type="checkbox" v-model="newVehicle.zero" name="zero">
+                <label id="zero" for="zero-c">
+                    <input type="checkbox" v-model="newVehicle.zero" name="zero" id="zero-c">
                     Veículo zero-quilômetro
                 </label>
                 <input type="submit" id="register-vehicle-form-btn" value="Salvar">

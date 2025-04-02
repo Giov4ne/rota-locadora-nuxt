@@ -24,6 +24,7 @@
 <script>
     export default{
         name: 'login',
+        layout: 'empty',
         data(){
             return{
                 inputType: 'password',
