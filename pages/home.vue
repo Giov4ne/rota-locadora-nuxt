@@ -50,7 +50,7 @@
                             <td>{{ vehicle.color }}</td>
                             <td>{{ vehicle.purpose }}</td>
                             <td>{{ vehicle.zero ? 'Sim' : 'Não' }}</td>
-                            <td>{{ vehicle.confortLevel }} <span class="fa fa-star"></span></td>
+                            <td>{{ vehicle.confortLevel }} <i class="fas fa-star"></i></td>
                             <td>{{ vehicle.latitude }}, {{ vehicle.longitude }}</td>
                             <td>
                                 <div class="options-dropdown-container" ref="dropdowns">

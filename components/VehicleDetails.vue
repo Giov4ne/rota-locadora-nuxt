@@ -9,7 +9,7 @@
             <div id="details-body">
                 <div id="details-grid">
                     <div id="plate-grid">
-                        <span class="fa fa-car"></span>
+                        <i class="fas fa-car"></i>
                         <span>
                             <p id="plate-grid-p">{{ vehicleToSeeDetails.plate }}</p>
                             <p class="grid-element-p">Frota 101</p>
@@ -37,7 +37,7 @@
                     </div>
                     <div id="confort-level-grid">
                         <p class="grid-element-title">Nível de conforto</p>
-                        <p class="grid-element-p">{{ vehicleToSeeDetails.confortLevel }} <span class="fa fa-star"></span></p>
+                        <p class="grid-element-p">{{ vehicleToSeeDetails.confortLevel }} <i class="fas fa-star"></i></p>
                     </div>
                     <div id="latitude-grid">
                         <p class="grid-element-title">Latitude</p>
