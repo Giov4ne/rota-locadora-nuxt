@@ -210,6 +210,7 @@
 
   .hide-password-icon{
     width: 32px;
+    margin-right: 8px;
   }
 
   @media screen and (max-width: 550px){

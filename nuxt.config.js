@@ -7,7 +7,8 @@ export default {
     ]
   },
   buildModules: [
-    '@nuxtjs/fontawesome'
+    '@nuxtjs/fontawesome',
+    '@nuxtjs/vuetify'
   ],
   fontawesome: {
     component: 'fa',
