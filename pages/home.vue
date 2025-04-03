@@ -8,6 +8,40 @@
                     <div class="dropdown-boxes">
                         <BrandsDropdown ref="brandsDropdownRef" :checkbox=true v-model="selectedBrands"></BrandsDropdown>
                     </div>
+
+
+
+
+
+                    <v-menu
+                        transition="slide-y-transition"
+                        bottom
+                        >
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn
+                            class="purple"
+                            color="primary"
+                            dark
+                            v-bind="attrs"
+                            v-on="on"
+                            >
+                            Slide Y Transition
+                            </v-btn>
+                        </template>
+                        <v-list>
+                            <v-list-item
+                            v-for="(brand, i) in brandOptions"
+                            :key="i"
+                            >
+                                <v-list-item-title>{{ brand.title }}</v-list-item-title>
+                            </v-list-item>
+                        </v-list>
+                    </v-menu>
+
+
+
+
+
                     <div class="dropdown-boxes">
                         <PurposesDropdown ref="purposesDropdownRef" v-model="selectedPurpose"></PurposesDropdown>
                     </div>
@@ -128,6 +162,18 @@ import MyPagination from '../components/MyPagination.vue';
                 activities: [],
                 vehicles: [],
                 filteredVehicles: [],
+                brandOptions: [
+                    { title: "Audi" },
+                    { title: "BMW" },
+                    { title: "Chevrolet" },
+                    { title: "Fiat" },
+                    { title: "Ford" },
+                    { title: "Jeep" },
+                    { title: "Mitsubishi" },
+                    { title: "Mercedes-Benz" },
+                    { title: "Peugeot" },
+                    { title: "Volkswagen" }
+                ],
                 /* 
                 VALORES DE EXEMPLO
                 { plate: "ABC-1234", brand: "BMW", model: "Série 3 Sport", year: 2021, color: "Preta", purpose: "Uso pessoal", zero: true, confortLevel: 5, latitude: "-26.278385", longitude: "-48.865418" },

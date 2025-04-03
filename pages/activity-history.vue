@@ -1,6 +1,6 @@
 <template>
     <div class="meucard">
-        <MyHeader></MyHeader>
+        <!-- <MyHeader></MyHeader> -->
         <div class="container">
             <section id="filters-section">
                 <div class="custom-field">

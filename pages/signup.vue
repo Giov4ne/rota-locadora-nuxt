@@ -27,6 +27,86 @@
             <input type="submit" class="submit-btn" value="CADASTRAR">
             <NuxtLink to="/login" class="signin-login-link">Fazer login</NuxtLink>
         </form>
+
+
+            <v-form v-model="valid" id="signin-form">
+                <v-container class="d-flex justify-center">
+                    <i class="fas fa-car"></i>
+                    <h2 class="form-title">Novo Cadastro</h2>
+
+                    <v-text-field
+                        label="Nome de Usuário"
+                        placeholder="Digite o nome do usuário"
+                        outlined
+                    ></v-text-field>
+                    
+
+
+
+
+                    
+                    <v-menu
+                        v-model="menu2"
+                        :close-on-content-click="false"
+                        :nudge-right="40"
+                        transition="scale-transition"
+                        offset-y
+                        min-width="auto"
+                    >
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                                v-model="date"
+                                label="Data de Nascimento"
+                                append-icon="mdi-calendar"
+                                readonly
+                                v-bind="attrs"
+                                v-on="on"
+                                outlined
+                            ></v-text-field>
+                        </template>
+                        <v-date-picker
+                            v-model="date"
+                            @input="menu2 = false"
+                        ></v-date-picker>
+                    </v-menu>
+
+
+
+
+
+
+                    <v-text-field
+                        label="E-mail"
+                        placeholder="Digite o e-mail"
+                        outlined
+                    ></v-text-field>
+
+                    <v-text-field
+                        v-model="password"
+                        :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                        :rules="[rules.required, rules.min]"
+                        :type="show1 ? 'text' : 'password'"
+                        name="input-10-1"
+                        label="Senha"
+                        placeholder="Digite a senha"
+                        hint="Pelo menos 8 caracteres"
+                        counter
+                        outlined
+                        @click:append="show1 = !show1"
+                    ></v-text-field>
+
+                    <v-btn
+                        block
+                        color="primary"
+                        large
+                    >
+                        ENTRAR
+                    </v-btn>
+
+                    <NuxtLink to="/login" class="signin-login-link">Fazer login</NuxtLink>
+                    
+                </v-container>
+            </v-form>
         <span v-if="errorMsg !== ''" class="error-message">{{ errorMsg }}</span>
     </div>
 </template>
@@ -44,7 +124,22 @@
                 inputType: 'password',
                 showHideBtn: 'fa fa-eye',
                 registeredUsers: [],
-                errorMsg: ''
+                errorMsg: '',
+
+
+                // vuetify
+                show1: false,
+                rules: {
+                    required: value => !!value || 'Obrigatório digitar senha',
+                    min: v => v.length >= 8 || 'Mínimo 8 caracteres',
+                    emailMatch: () => (`The email and password you entered don't match`),
+                },
+
+                // vuetify
+                date: '',
+                menu: false,
+                modal: false,
+                menu2: false
             };
         },
         computed: {

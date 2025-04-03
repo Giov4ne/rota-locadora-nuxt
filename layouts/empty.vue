@@ -41,6 +41,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 12px;
   }
 
   #login-form .fa-car, #signin-form .fa-car{
