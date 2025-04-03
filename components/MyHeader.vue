@@ -30,28 +30,33 @@
     -->
 
 
-        <div style="margin-top: 100px;">
+        
             <v-app-bar fixed>
-                <NuxtLink to="/home" id="rl-logo">
-                    <v-icon>mdi-car</v-icon>
-                    <v-toolbar-title>RotaLocadora</v-toolbar-title>
-                </NuxtLink>
-                <div id="pages">
-                    <NuxtLink to="/home" class="page">VEÍCULOS</NuxtLink>
-                    <NuxtLink to="/activity-history" class="page">HISTÓRICO DE ATIVIDADES</NuxtLink>
-                </div>
-                <div id="greeting">
-                    <p>Olá</p>
-                    <p id="name">{{ getUsername }}</p>
-                </div>
-                <v-avatar size="42">
-                    <img
-                        src="../assets/user.png"
-                        alt="Usuário"
-                    >
-                </v-avatar>
+                <template #default>
+                    <div class="d-flex justify-space-between header-test">
+                        
+                        <NuxtLink to="/home" id="rl-logo">
+                            <v-icon>mdi-car</v-icon>
+                            <v-toolbar-title>RotaLocadora</v-toolbar-title>
+                        </NuxtLink>
+                        <div id="pages">
+                            <NuxtLink to="/home" class="page">VEÍCULOS</NuxtLink>
+                            <NuxtLink to="/activity-history" class="page">HISTÓRICO DE ATIVIDADES</NuxtLink>
+                        </div>
+                        <div id="greeting">
+                            <p>Olá</p>
+                            <p id="name">{{ getUsername }}</p>
+                        </div>
+                        <v-avatar size="42">
+                            <img
+                                src="../assets/user.png"
+                                alt="Usuário"
+                            >
+                        </v-avatar>
+                    </div>
+                </template>
             </v-app-bar>
-        </div>
+        
 </template>
 
 <script>
@@ -87,7 +92,12 @@
     }
 </script>
 
-<style>
+<style scoped>
+    .header-test{
+        width: 100%;
+        padding: 8px;
+    }   
+
     header, #header-navigation, #user-info, #rl-logo{
         display: flex;
         flex-direction: row;

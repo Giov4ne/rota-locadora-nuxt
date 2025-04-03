@@ -1,14 +1,19 @@
 export default {
   ssr: false, // Set to true for SSR
   target: 'static', // or 'server'
+  // vuetify: {
+
+  // },
   router: {
     middleware: [
       'authentication'
     ]
   },
+  modules: [
+    '@nuxtjs/vuetify'
+  ],
   buildModules: [
     '@nuxtjs/fontawesome',
-    '@nuxtjs/vuetify'
   ],
   fontawesome: {
     component: 'fa',
@@ -30,6 +35,33 @@ export default {
     { 
       src: '@/plugins/fontawesome', 
       ssr: false 
+    },
+    { 
+      src: '@/plugins/vuetify', 
+      ssr: false 
     }
-  ]
+  ],
+  loaders: {
+    scss: {
+      implementation: require('sass')
+    }
+  },
+  // rules: [
+  //   {
+  //     test: /\.s(c|a)ss$/,
+  //     use: [
+  //       'css-loader',
+  //       {
+  //         loader: 'sass-loader',
+  //         // Requires >= sass-loader@^8.0.0
+  //         options: {
+  //           implementation: require('sass'),
+  //           sassOptions: {
+  //             indentedSyntax: true // optional
+  //           },
+  //         },
+  //       },
+  //     ],
+  //   }
+  // ]
 }

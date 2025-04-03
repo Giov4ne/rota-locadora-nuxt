@@ -24,8 +24,8 @@
             
 
             <v-form v-model="valid" id="login-form">
-                <v-container> <!-- class="d-flex justify-center" -->
-                    <i class="fas fa-car"></i>
+                <v-container class="d-flex flex-column justify-center">
+                    <v-icon class="fas fa-car" color="red"></v-icon>
                     <h2 class="form-title">Login</h2>
 
                     <v-text-field
@@ -52,6 +52,7 @@
                         block
                         color="primary"
                         large
+                        outlined
                     >
                         ENTRAR
                     </v-btn>
@@ -76,6 +77,8 @@
 </template>
 
 <script>
+    import "vuetify/dist/vuetify.min.css";
+    
     export default{
         name: 'login',
         layout: 'empty',
@@ -141,6 +144,6 @@
     }
 </script>
 
-<style scoped>
+<style >
   
 </style>
