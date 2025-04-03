@@ -7,6 +7,17 @@
                     <label for="plate">Placa</label>
                     <input type="text" class="inputs" name="plate" placeholder="Digite a placa do veículo" v-model="plateInput">
                 </div>
+
+
+
+                <v-text-field
+                    label="Placa"
+                    placeholder="Digite a placa ou a cor do veículo"
+                    outlined
+                ></v-text-field>
+
+
+
                 <div id="search-erase">
                     <button class="search-btn">
                         <span class="fa fa-search"></span>
