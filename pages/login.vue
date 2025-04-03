@@ -1,25 +1,77 @@
 <template>
-    <div class="login-signin-container">
-        <form id="login-form" @submit.prevent="login">
-            <i class="fas fa-car"></i>
-            <h2 class="form-title">Login</h2>
-            <div class="custom-field">
-                <label for="email">E-mail</label>
-                <input type="text" class="inputs" v-model="email" name="email" placeholder="Digite o e-mail" required>
-            </div>
-            <div class="custom-field">
-                <label for="password">Senha</label>
-                <div class="password-input">
-                    <input :type="inputType" class="inputs password" v-model="password" name="password" placeholder="Digite a senha" required>
-                    <div class="hide-password-btn" :key="showHideBtn" @click="showHidePassword">
-                      <i :class="[showHideBtn, 'hide-password-icon']"></i>
+    <div>
+        <div class="login-signin-container">
+            <form id="login-form" @submit.prevent="login">
+                <i class="fas fa-car"></i>
+                <h2 class="form-title">Login</h2>
+                <div class="custom-field">
+                    <label for="email">E-mail</label>
+                    <input type="text" class="inputs" v-model="email" name="email" placeholder="Digite o e-mail" required>
+                </div>
+                <div class="custom-field">
+                    <label for="password">Senha</label>
+                    <div class="password-input">
+                        <input :type="inputType" class="inputs password" v-model="password" name="password" placeholder="Digite a senha" required>
+                        <div class="hide-password-btn" :key="showHideBtn" @click="showHidePassword">
+                        <i :class="[showHideBtn, 'hide-password-icon']"></i>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <input type="submit" class="submit-btn" value="ENTRAR">
-            <NuxtLink to="/signup" class="signin-login-link">Criar conta</NuxtLink>
-        </form>
-        <span v-if="errorMsg !== ''" class="error-message">{{ errorMsg }}</span>
+                <input type="submit" class="submit-btn" value="ENTRAR">
+                <NuxtLink to="/signup" class="signin-login-link">Criar conta</NuxtLink>
+            </form>
+            <span v-if="errorMsg !== ''" class="error-message">{{ errorMsg }}</span>
+            
+
+            <v-form v-model="valid" id="login-form">
+                <v-container> <!-- class="d-flex justify-center" -->
+                    <i class="fas fa-car"></i>
+                    <h2 class="form-title">Login</h2>
+
+                    <v-text-field
+                        label="E-mail"
+                        placeholder="Digite o e-mail"
+                        outlined
+                    ></v-text-field>
+
+                    <v-text-field
+                        v-model="password"
+                        :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                        :rules="[rules.required, rules.min]"
+                        :type="show1 ? 'text' : 'password'"
+                        name="input-10-1"
+                        label="Senha"
+                        placeholder="Digite a senha"
+                        hint="Pelo menos 8 caracteres"
+                        counter
+                        outlined
+                        @click:append="show1 = !show1"
+                    ></v-text-field>
+
+                    <v-btn
+                        block
+                        color="primary"
+                        large
+                    >
+                        ENTRAR
+                    </v-btn>
+
+                    <NuxtLink to="/signup" class="signin-login-link">Criar conta</NuxtLink>
+                    
+                    <!-- <v-btn
+                        elevation="2"
+                        outlined
+                        :loading="true"
+                        @click=""
+                        >
+                        <template #counter="{ props: { dark } }">
+                            carregando...
+                        </template>
+                    </v-btn> -->
+                    
+                </v-container>
+            </v-form>
+        </div>
     </div>
 </template>
 
@@ -34,7 +86,16 @@
                 email: '',
                 password: '',
                 registeredUsers: [],
-                errorMsg: ''
+                errorMsg: '',
+
+
+                // vuetify
+                show1: false,
+                rules: {
+                    required: value => !!value || 'Obrigatório digitar senha',
+                    min: v => v.length >= 8 || 'Mínimo 8 caracteres',
+                    emailMatch: () => (`The email and password you entered don't match`),
+                }
             }
         },
         methods:{

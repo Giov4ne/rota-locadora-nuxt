@@ -1,31 +1,57 @@
 <template>
-    <header>
-        <nav id="header-navigation">
-            <NuxtLink to="/home" id="rl-logo">
-                <i class="fas fa-car" id="logo-icon"></i>
-                <span id="logo-text">RotaLocadora</span>
-            </NuxtLink>
-            <div id="pages">
-                <NuxtLink to="/home" class="page">VEÍCULOS</NuxtLink>
-                <NuxtLink to="/activity-history" class="page">HISTÓRICO DE ATIVIDADES</NuxtLink>
+    <!-- 
+        <header>
+            <nav id="header-navigation">
+                <NuxtLink to="/home" id="rl-logo">
+                    <i class="fas fa-car" id="logo-icon"></i>
+                    <span id="logo-text">RotaLocadora</span>
+                </NuxtLink>
+                <div id="pages">
+                    <NuxtLink to="/home" class="page">VEÍCULOS</NuxtLink>
+                    <NuxtLink to="/activity-history" class="page">HISTÓRICO DE ATIVIDADES</NuxtLink>
+                </div>
+            </nav>
+            <div id="user-info">
+                <div id="greeting">
+                    <p>Olá</p>
+                    <p id="name">{{ getUsername }}</p>
+                </div>
+                <div class="exit-dropdown-container">
+                    <img src="../assets/user.png" alt="user image" id="user-img" @click="exitToggleDropdown">
+                    <transition name="fade">
+                        <div v-if="exitIsOpen" @click="logout" class="exit-dropdown">
+                            <i class="fas fa-right-from-bracket"></i>
+                            <span>Sair</span>
+                        </div>
+                    </transition>
+                </div>
             </div>
-        </nav>
-        <div id="user-info">
-            <div id="greeting">
-                <p>Olá</p>
-                <p id="name">{{ getUsername }}</p>
-            </div>
-            <div class="exit-dropdown-container">
-                <img src="../assets/user.png" alt="user image" id="user-img" @click="exitToggleDropdown">
-                <transition name="fade">
-                    <div v-if="exitIsOpen" @click="logout" class="exit-dropdown">
-                        <i class="fas fa-right-from-bracket"></i>
-                        <span>Sair</span>
-                    </div>
-                </transition>
-            </div>
+        </header> 
+    -->
+
+
+        <div style="margin-top: 100px;">
+            <v-app-bar fixed>
+                <NuxtLink to="/home" id="rl-logo">
+                    <v-icon>mdi-car</v-icon>
+                    <v-toolbar-title>RotaLocadora</v-toolbar-title>
+                </NuxtLink>
+                <div id="pages">
+                    <NuxtLink to="/home" class="page">VEÍCULOS</NuxtLink>
+                    <NuxtLink to="/activity-history" class="page">HISTÓRICO DE ATIVIDADES</NuxtLink>
+                </div>
+                <div id="greeting">
+                    <p>Olá</p>
+                    <p id="name">{{ getUsername }}</p>
+                </div>
+                <v-avatar size="42">
+                    <img
+                        src="../assets/user.png"
+                        alt="Usuário"
+                    >
+                </v-avatar>
+            </v-app-bar>
         </div>
-    </header>
 </template>
 
 <script>
