@@ -122,6 +122,23 @@ import StarRating from './StarRating.vue';
             allVehicles: Array,
             allActivities: Array
         },
+
+        data(){
+            return {
+                newVehicle: { plate: "", brand: "", model: "", year: "", color: "", purpose: "", zero: false, confortLevel: 0, latitude: "", longitude: "" },
+
+                vehicleToEdit: this.vehicle 
+                ? { ...this.vehicle } // Copia para não alterar diretamente a prop
+                : this.newVehicle,
+
+                vehicles: this.allVehicles,
+
+                errorMsg: '',
+
+                activities: this.allActivities
+            };
+        },
+        
         computed: {
             isEditing(){
                 return this.vehicle !== null;
@@ -153,21 +170,6 @@ import StarRating from './StarRating.vue';
             getVehicleToEditIndex(){
                 return this.vehicles.findIndex(vehicle => this.vehicleToEdit.plate === vehicle.plate);
             }
-        },
-        data(){
-            return {
-                newVehicle: { plate: "", brand: "", model: "", year: "", color: "", purpose: "", zero: false, confortLevel: 0, latitude: "", longitude: "" },
-
-                vehicleToEdit: this.vehicle 
-                ? { ...this.vehicle } // Copia para não alterar diretamente a prop
-                : this.newVehicle,
-
-                vehicles: this.allVehicles,
-
-                errorMsg: '',
-
-                activities: this.allActivities
-            };
         },
         methods:{
             close(){

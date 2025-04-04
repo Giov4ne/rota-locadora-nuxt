@@ -61,7 +61,7 @@
 
             clearPurposeSelection(){
                 this.localSelectedPurpose = '';
-                this.$emit("update:modelValue", '');
+                this.$emit("input", '');
             }
         }
     }

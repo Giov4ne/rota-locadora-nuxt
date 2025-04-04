@@ -116,6 +116,13 @@
                 if(user){
                     if(this.password === user.password){
                         localStorage.setItem('loggedUser', JSON.stringify(user));
+                        
+                        // as linhas abaixo chamam os mutations definidos em store/user
+                        this.$store.commit('user/setUsername', user.username);
+                        this.$store.commit('user/setEmail', user.email);
+                        this.$store.commit('user/setPassword', user.password);
+                        this.$store.commit('user/setBirthDate', user.birthDate);
+
                         this.$router.push('/home');
                     } else{
                         this.showError('Senha incorreta!');
