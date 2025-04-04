@@ -1,5 +1,5 @@
 <template>
-    <!-- 
+    
         <header>
             <nav id="header-navigation">
                 <NuxtLink to="/home" id="rl-logo">
@@ -27,11 +27,11 @@
                 </div>
             </div>
         </header> 
-    -->
+   
 
 
         
-            <v-app-bar fixed>
+            <!-- <v-app-bar fixed>
                 <template #default>
                     <div class="d-flex justify-space-between header-test">
                         
@@ -62,7 +62,7 @@
                         </transition>
                     </div>
                 </template>
-            </v-app-bar>
+            </v-app-bar> -->
         
 </template>
 
@@ -89,8 +89,8 @@
 
         computed:{
             getUsername(){
-                return this.$store.state.user.name;
-                return this.username !== '' ? this.username : 'Usuário';
+                return this.$store.state.user.username;
+                //return this.username !== '' ? this.username : 'Usuário';
             }
         },
 

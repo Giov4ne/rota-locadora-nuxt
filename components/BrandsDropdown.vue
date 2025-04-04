@@ -90,7 +90,7 @@
             clearBrandsSelection(){
                 this.selectedBrands = [];
                 this.localSelectedBrand = '';
-                this.$emit('update:modelValue', '');
+                this.$emit('input', '');
             },
 
             selectBrandOption(brand){
@@ -102,7 +102,7 @@
             },
 
             updateSelectedBrands() {
-                this.$emit('update:modelValue', [...this.selectedBrands]);
+                this.$emit('input', [...this.selectedBrands]);
             }
         },
         watch: {

@@ -8,16 +8,6 @@
                     <input type="text" class="inputs" name="plate" placeholder="Digite a placa do veículo" v-model="plateInput">
                 </div>
 
-
-
-                <v-text-field
-                    label="Placa"
-                    placeholder="Digite a placa ou a cor do veículo"
-                    outlined
-                ></v-text-field>
-
-
-
                 <div id="search-erase">
                     <button class="search-btn">
                         <span class="fa fa-search"></span>
@@ -68,13 +58,13 @@ import MyPagination from '../components/MyPagination.vue';
                 let icon = '';
                 switch(type){
                     case 'register':
-                        icon = 'fa fa-plus';
+                        icon = 'fas fa-plus';
                         break;
                     case 'edit':
-                        icon = 'fa fa-pencil';
+                        icon = 'fas fa-pencil';
                         break;
                     case 'delete':
-                        icon = 'fa fa-trash';
+                        icon = 'fas fa-trash';
                         break;
                 }
                 return icon;

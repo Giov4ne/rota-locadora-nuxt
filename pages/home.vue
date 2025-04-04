@@ -10,38 +10,6 @@
                     </div>
 
 
-
-
-
-                    <v-menu
-                        transition="slide-y-transition"
-                        bottom
-                        >
-                        <template v-slot:activator="{ on, attrs }">
-                            <v-btn
-                            class="purple"
-                            color="primary"
-                            dark
-                            v-bind="attrs"
-                            v-on="on"
-                            >
-                            Slide Y Transition
-                            </v-btn>
-                        </template>
-                        <v-list>
-                            <v-list-item
-                            v-for="(brand, i) in brandOptions"
-                            :key="i"
-                            >
-                                <v-list-item-title>{{ brand.title }}</v-list-item-title>
-                            </v-list-item>
-                        </v-list>
-                    </v-menu>
-
-
-
-
-
                     <div class="dropdown-boxes">
                         <PurposesDropdown ref="purposesDropdownRef" v-model="selectedPurpose"></PurposesDropdown>
                     </div>
@@ -71,16 +39,6 @@
                     </div>
                     <i class="fas fa-filter filter-btn"></i>
                 </div>
-            <!-- <v-btn
-                elevation="2"
-                outlined
-                :loading="true"
-                @click=""
-                >
-                <template #counter="{ props: { dark } }">
-                    carregando...
-                </template>
-            </v-btn> -->
             </section>
             <main>
                 <table v-if="filteredVehicles.length">
@@ -320,7 +278,7 @@ import MyPagination from '../components/MyPagination.vue';
         computed: {
             username: {
                 get(){
-                    return this.$store.state.user.name;
+                    return this.$store.state.user.username;
                 },
                 set(value){
                     this.$store.commit('user/setUsername', value);

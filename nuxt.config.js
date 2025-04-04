@@ -27,7 +27,10 @@ export default {
         'faStar',
         'faLocationDot',
         'faEye',
-        'faEyeSlash'
+        'faEyeSlash',
+        'faPlus',
+        'faPencil',
+        'faTrash'
       ]
     }
   },
