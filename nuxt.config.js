@@ -46,6 +46,12 @@ export default {
       implementation: require('sass')
     }
   },
+  vue: {
+    config: {
+      devtools: true
+    }
+  },
+  devtools: true
   // rules: [
   //   {
   //     test: /\.s(c|a)ss$/,

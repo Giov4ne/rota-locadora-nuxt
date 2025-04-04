@@ -56,7 +56,7 @@
             selectPurposeOption(purpose){
                 this.localSelectedPurpose = purpose.label;
                 this.purposesIsOpen = false;
-                this.$emit("update:modelValue", purpose.label);
+                this.$emit("input", purpose.label);
             },
 
             clearPurposeSelection(){

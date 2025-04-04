@@ -43,7 +43,6 @@
                         label="Senha"
                         placeholder="Digite a senha"
                         hint="Pelo menos 8 caracteres"
-                        counter
                         outlined
                         @click:append="show1 = !show1"
                     ></v-text-field>
