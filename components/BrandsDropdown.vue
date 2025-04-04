@@ -97,7 +97,7 @@
                 if (!this.checkbox) {
                     this.localSelectedBrand = brand.label;
                     this.brandOptionsIsOpen = false;
-                    this.$emit('update:modelValue', brand.label);
+                    this.$emit('input', brand.label);
                 }
             },
 

@@ -27,7 +27,7 @@
     methods: {
       rate(star) {
         this.selectedRating = star;
-        this.$emit("update:modelValue", star);
+        this.$emit("input", star);
       },
       hover(star) {
         this.hoveredStar = star;

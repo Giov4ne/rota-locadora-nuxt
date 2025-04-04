@@ -53,6 +53,7 @@
 
                     <v-text-field
                         label="Placa"
+                        v-model="username"
                         placeholder="Digite a placa ou a cor do veículo"
                         outlined
                     ></v-text-field>
@@ -309,6 +310,21 @@ import MyPagination from '../components/MyPagination.vue';
                 setTimeout(() => {
                     this.successMsg = '';
                 }, 5000);
+            },
+
+            // changeUsername(){
+            //     this.$store.commit('user/setUsername', this.username);
+            // }
+        },
+
+        computed: {
+            username: {
+                get(){
+                    return this.$store.state.user.name;
+                },
+                set(value){
+                    this.$store.commit('user/setUsername', value);
+                }
             }
         },
 

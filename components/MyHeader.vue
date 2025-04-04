@@ -49,10 +49,17 @@
                         </div>
                         <v-avatar size="42">
                             <img
+                                @click="exitToggleDropdown"
                                 src="../assets/user.png"
                                 alt="Usuário"
                             >
                         </v-avatar>
+                        <transition name="fade">
+                            <div v-if="exitIsOpen" @click="logout" class="exit-dropdown">
+                                <i class="fas fa-right-from-bracket"></i>
+                                <span>Sair</span>
+                            </div>
+                        </transition>
                     </div>
                 </template>
             </v-app-bar>
@@ -82,6 +89,7 @@
 
         computed:{
             getUsername(){
+                return this.$store.state.user.name;
                 return this.username !== '' ? this.username : 'Usuário';
             }
         },
