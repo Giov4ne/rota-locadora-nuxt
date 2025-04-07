@@ -23,7 +23,7 @@
             <span v-if="errorMsg !== ''" class="error-message">{{ errorMsg }}</span>
             
 
-            <v-form v-model="valid" id="login-form">
+            <!-- <v-form v-model="valid" id="login-form">
                 <v-container class="d-flex flex-column justify-center">
                     <v-icon class="fas fa-car" color="red"></v-icon>
                     <h2 class="form-title">Login</h2>
@@ -58,7 +58,7 @@
 
                     <NuxtLink to="/signup" class="signin-login-link">Criar conta</NuxtLink>
                     
-                    <!-- <v-btn
+                     <v-btn
                         elevation="2"
                         outlined
                         :loading="true"
@@ -67,16 +67,22 @@
                         <template #counter="{ props: { dark } }">
                             carregando...
                         </template>
-                    </v-btn> -->
+                    </v-btn>
                     
                 </v-container>
-            </v-form>
+            </v-form> -->
+            <ul>
+                <li v-for="(user, index) in users" :key="index">
+                    {{ user }}
+                </li>
+            </ul>
         </div>
     </div>
 </template>
 
 <script>
     import "vuetify/dist/vuetify.min.css";
+    import { mapGetters } from 'vuex';
     
     export default{
         name: 'login',
@@ -87,7 +93,6 @@
                 showHideBtn: 'fas fa-eye',
                 email: '',
                 password: '',
-                registeredUsers: [],
                 errorMsg: '',
 
 
@@ -100,6 +105,9 @@
                 }
             }
         },
+        computed: {
+            ...mapGetters('users', ['users', 'totalUsers'])
+        },
         methods:{
             showHidePassword(){
                 if(this.inputType === 'password'){
@@ -111,29 +119,52 @@
                 }
             },
 
-            login(){
-                const user = this.getUserByEmail();
-                if(user){
-                    if(this.password === user.password){
-                        localStorage.setItem('loggedUser', JSON.stringify(user));
-                        
-                        // as linhas abaixo chamam os mutations definidos em store/user
-                        this.$store.commit('user/setUsername', user.username);
-                        this.$store.commit('user/setEmail', user.email);
-                        this.$store.commit('user/setPassword', user.password);
-                        this.$store.commit('user/setBirthDate', user.birthDate);
+            async login(){
+                // const user = this.getUserByEmail();
+                // if(user){
+                //     if(this.password === user.password){
+                //         localStorage.setItem('loggedUser', JSON.stringify(user));
+                //         this.$router.push('/home');
+                //     } else{
+                //         this.showError('Senha incorreta!');
+                //     }
+                // } else{
+                //     this.showError('Este e-mail não foi cadastrado!');                
+                // }
+                try {
+                    let response = await this.$auth.loginWith('local', { 
+                        data: { 
+                            email: this.email, 
+                            password: this.password,
+                            produto: 'dev'
+                        } 
+                    })
 
-                        this.$router.push('/home');
-                    } else{
-                        this.showError('Senha incorreta!');
-                    }
-                } else{
-                    this.showError('Este e-mail não foi cadastrado!');                
+                    await this.$auth.fetchUser()
+
+                    
+
+                    console.log(this.$auth.user)
+                    // const response = await this.$store.dispatch('auth/LOGIN', { 
+                        // email: this.email, 
+                        // password: this.password,
+                        // produto: 'dev'
+                    // });
+// 
+                    // this.$auth.setUserToken(response.token);
+                    // this.$axios.setToken(response.token);
+// 
+                    // this.$store.dispatch('auth/ME')
+                        // .then(response => { console.log(response) })
+// 
+                    console.log(response);
+                } catch (err) {
+                    console.log(err);
                 }
             },
 
             getUserByEmail(){
-                return this.registeredUsers.find(user => this.email === user.email) || null;
+                return this.users.find(user => this.email === user.email) || null;
             },
 
             showError(message) {
@@ -143,9 +174,6 @@
                     this.errorMsg = '';
                 }, 5000);
             }
-        },
-        mounted(){
-            this.registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) !== null ? JSON.parse(localStorage.getItem('registeredUsers')) : [];
         }
     }
 </script>

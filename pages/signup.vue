@@ -108,10 +108,17 @@
                 </v-container>
             </v-form>
         <span v-if="errorMsg !== ''" class="error-message">{{ errorMsg }}</span>
+        <ul>
+            <li v-for="(user, index) in users" :key="index">
+                {{ user }}
+            </li>
+        </ul>
     </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+
     export default {
         name: 'signup',
         layout: 'empty',
@@ -123,7 +130,6 @@
                 password: '',
                 inputType: 'password',
                 showHideBtn: 'fa fa-eye',
-                registeredUsers: [],
                 errorMsg: '',
 
 
@@ -143,6 +149,7 @@
             };
         },
         computed: {
+            ...mapGetters('users', ['users']),
             maxDate() {
                 return new Date().toISOString().split("T")[0];
             },
@@ -155,10 +162,12 @@
                 };
             },
             userExists(){
-                return this.registeredUsers.some(user => this.email === user.email);
+                return this.users.some(user => this.email === user.email);
             }
         },
         methods: {
+            ...mapActions('users', ['addUser']),
+
             showHidePassword() {
                 if(this.inputType === 'password'){
                     this.inputType = 'text';
@@ -179,13 +188,18 @@
 
             registerUser(){
                 if(!this.userExists){
-                    this.registeredUsers.push({
+                    // this.registeredUsers.push({
+                    //     username: this.username,
+                    //     birthDate: this.birthDate,
+                    //     email: this.email,
+                    //     password: this.password
+                    // });
+                    this.addUser({
                         username: this.username,
                         birthDate: this.birthDate,
                         email: this.email,
                         password: this.password
                     });
-                    localStorage.setItem('registeredUsers', JSON.stringify(this.registeredUsers));
                     this.$router.push('/login');
                 } else{
                     this.showError('Já existe um usuário cadastrado com este e-mail!');
@@ -199,10 +213,6 @@
                     this.errorMsg = '';
                 }, 5000);
             }
-        },
-        mounted(){
-            this.registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) !== null ? JSON.parse(localStorage.getItem('registeredUsers')) : [];
-            console.log(this.registeredUsers);
         }
     };
 </script>

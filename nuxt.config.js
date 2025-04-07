@@ -10,7 +10,9 @@ export default {
     ]
   },
   modules: [
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
+    '@nuxtjs/axios',
+    '@nuxtjs/auth-next'
   ],
   buildModules: [
     '@nuxtjs/fontawesome',
@@ -42,6 +44,10 @@ export default {
     { 
       src: '@/plugins/vuetify', 
       ssr: false 
+    },
+    {
+      src: '@plugins/init.client',
+      ssr: false
     }
   ],
   loaders: {
@@ -54,7 +60,50 @@ export default {
       devtools: true
     }
   },
-  devtools: true
+  devtools: true,
+  axios: {
+    baseURL: 'https://api-dev.rotaexata.com.br/',
+    headers: {
+      post: {
+        'User-Agent': 'eurota'
+      }
+    }
+  },
+  auth: {
+    cookie: {
+      prefix: 'auth.'
+    },
+    redirect: {
+      login: '/auth/login',
+      logout: false
+    },
+    strategies: {
+      local: {
+        scheme: 'refresh',
+        token: {
+          property: 'token',
+          maxAge: 3600,
+          global: true,
+          type: ''
+        },
+        refreshToken: {
+          property: 'refreshToken',
+          data: 'refreshToken',
+          maxAge: 7776000
+        },
+        user: {
+          property: 'session',
+          autoFetch: false
+        },
+        endpoints: {
+          login: { url: '/login', method: 'post' },
+          // refresh: { url: '/refresh-token', method: 'post' },
+          user: { url: '/me', method: 'get' },
+          // logout: { url: '/logout', method: 'get' }
+        }
+      }
+    },
+  }
   // rules: [
   //   {
   //     test: /\.s(c|a)ss$/,
