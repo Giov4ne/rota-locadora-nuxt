@@ -19,12 +19,11 @@
                     </div>
 
 
-                    <v-text-field
+                    <!-- <v-text-field
                         label="Placa"
-                        v-model="username"
                         placeholder="Digite a placa ou a cor do veículo"
                         outlined
-                    ></v-text-field>
+                    ></v-text-field> -->
 
 
                     
@@ -110,6 +109,7 @@ import PurposesDropdown from '../components/PurposesDropdown.vue';
 import VehicleEditRegistration from '../components/VehicleEditRegistration.vue';
 import VehicleDetails from '../components/VehicleDetails.vue';
 import MyPagination from '../components/MyPagination.vue';
+import axios from 'axios';
 
     export default{
         
@@ -270,21 +270,40 @@ import MyPagination from '../components/MyPagination.vue';
                 }, 5000);
             },
 
+            // TESTANDO AXIOS
+            // async buscaDados(){
+            //     const cep = '89208320';
+            //     try{
+            //         const result = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+            //         console.log(result.data);
+            //     } catch(error){
+            //         console.log(error.message);
+            //     } finally{
+            //         console.log('loading = false');
+            //     }
+
+            //     // EXEMPLO COM FETCH
+            //     // const users = fetch('https://api.github.com/users')
+            //     //     .then(res => res.json())
+            //     //     // .then(res => { console.log(res) });
+            //     // console.log("segundo console: ", users);
+            // }
+
             // changeUsername(){
             //     this.$store.commit('user/setUsername', this.username);
             // }
         },
 
-        computed: {
-            username: {
-                get(){
-                    return this.$store.state.user.username;
-                },
-                set(value){
-                    this.$store.commit('user/setUsername', value);
-                }
-            }
-        },
+        // computed: {
+        //     username: {
+        //         get(){
+        //             return this.$store.state.users.username;
+        //         },
+        //         set(value){
+        //             this.$store.commit('users/setUsername', value);
+        //         }
+        //     }
+        // },
 
         watch: {
             selectedBrands: 'filterVehicles',
@@ -296,6 +315,9 @@ import MyPagination from '../components/MyPagination.vue';
             this.vehicles = JSON.parse(localStorage.getItem('vehicles')) !== null ? JSON.parse(localStorage.getItem('vehicles')) : [];
             this.activities = JSON.parse(localStorage.getItem('activityHistory')) !== null ? JSON.parse(localStorage.getItem('activityHistory')) : [];
             this.filteredVehicles = this.vehicles;
+
+            // this.buscaDados();
+            console.log(this.$auth.user.usuario)
         }
     }
 </script>

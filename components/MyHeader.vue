@@ -89,8 +89,8 @@
 
         computed:{
             getUsername(){
-                return this.$store.state.user.username;
-                //return this.username !== '' ? this.username : 'Usuário';
+                //return this.$store.state.user.username;
+                return this.username !== '' ? this.username : 'Usuário';
             }
         },
 
