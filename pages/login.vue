@@ -71,11 +71,11 @@
                     
                 </v-container>
             </v-form> -->
-            <ul>
+            <!-- <ul>
                 <li v-for="(user, index) in users" :key="index">
                     {{ user }}
                 </li>
-            </ul>
+            </ul> -->
         </div>
     </div>
 </template>
@@ -131,37 +131,43 @@
                 // } else{
                 //     this.showError('Este e-mail não foi cadastrado!');                
                 // }
-                try {
-                    let response = await this.$auth.loginWith('local', { 
-                        data: { 
-                            email: this.email, 
-                            password: this.password,
-                            produto: 'dev'
-                        } 
+                
+                await this.$auth.loginWith('local', { 
+                    data: { 
+                        email: this.email, 
+                        password: this.password,
+                        produto: 'dev'
+                    } 
+                })  
+                    .then((response) => {
+                        // console.log('sucesso:', response);
+                        this.$router.push('/home');
+                        //const user = this.getUserByEmail();
+                        //localStorage.setItem('loggedUser', JSON.stringify(user));
+                    })
+                    .catch((error) => {
+                        console.log(error);
                     })
 
-                    await this.$auth.fetchUser()
-
+                
+                    // await this.$auth.fetchUser()
+    
                     
-
-                    console.log(this.$auth.user)
+    
+                    // console.log(this.$auth.user)
                     // const response = await this.$store.dispatch('auth/LOGIN', { 
                         // email: this.email, 
                         // password: this.password,
                         // produto: 'dev'
                     // });
-// 
+    // 
                     // this.$auth.setUserToken(response.token);
                     // this.$axios.setToken(response.token);
-// 
+    // 
                     // this.$store.dispatch('auth/ME')
                         // .then(response => { console.log(response) })
-// 
-                    console.log(response);
-                } catch (err) {
-                    console.log(err);
-                }
-            },
+    // 
+                },
 
             getUserByEmail(){
                 return this.users.find(user => this.email === user.email) || null;

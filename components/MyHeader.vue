@@ -14,7 +14,7 @@
             <div id="user-info">
                 <div id="greeting">
                     <p>Olá</p>
-                    <p id="name">{{ getUsername }}</p>
+                    <p id="name">{{ username }}</p>
                 </div>
                 <div class="exit-dropdown-container">
                     <img src="../assets/user.png" alt="user image" id="user-img" @click="exitToggleDropdown">
@@ -67,12 +67,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
     export default{
         name: 'MyHeader',
         data(){
             return{
                 exitIsOpen: false,
-                username: ''
+                // username: ''
             }
         },
 
@@ -81,22 +82,52 @@
                 this.exitIsOpen = !this.exitIsOpen;
             },
 
-            logout(){
-                localStorage.removeItem('loggedUser');
-                this.$router.replace('/login');
+            async logout(){
+                // localStorage.removeItem('loggedUser');
+                await this.$auth.logout()
+                    .then((response) => {
+                        console.log(response)
+                        this.$router.push('/login');
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
             }
-        },
 
+            // async loadUser(){
+            // }
+        },
+        
         computed:{
-            getUsername(){
-                //return this.$store.state.user.username;
-                return this.username !== '' ? this.username : 'Usuário';
-            }
-        },
+            // ...mapGetters('auth', ['user']),
 
-        mounted(){
-            this.username = JSON.parse(localStorage.getItem('loggedUser'))?.username;
+            username(){
+                // console.log('CONSOLE_HEADER', this.$store.state);
+                // return 'ola mundo';
+                return this.$store.state.auth.user.usuario.nome
+            }
+
+            // getUsername(){
+            //     // return this.$store.state.auth.user.name;
+            //     // if(this.username)
+            //         // return this.username;
+            // return this.username !== '' ? this.username : 'Usuário';
+            // }
         }
+    
+        // async fetch(){
+        //     await this.$auth.fetchUser()
+        //         .then((response) => {
+        //             this.username = response.data.session.usuario.nome
+        //         })
+        //         .catch((error) => {
+        //             console.log(error);
+        //         })
+        // }
+
+        // mounted(){
+        //     this.loadUser();
+        // }
     }
 </script>
 
