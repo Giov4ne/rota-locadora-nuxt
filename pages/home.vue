@@ -268,65 +268,90 @@ import axios from 'axios';
                 setTimeout(() => {
                     this.successMsg = '';
                 }, 5000);
-            },
+            }
+            ,
 
-            // TESTANDO AXIOS
-            // async buscaDados(){
-            //     const cep = '89208320';
-            //     try{
-            //         const result = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
-            //         console.log(result.data);
-            //     } catch(error){
-            //         console.log(error.message);
-            //     } finally{
-            //         console.log('loading = false');
-            //     }
-
-            //     // EXEMPLO COM FETCH
-            //     // const users = fetch('https://api.github.com/users')
-            //     //     .then(res => res.json())
-            //     //     // .then(res => { console.log(res) });
-            //     // console.log("segundo console: ", users);
+            // async fetchUsuario(){
+            //     return await this.$auth.fetchUser()
+            //         .then((response) => {
+            //             // console.log(response.data.session.usuario);
+            //             // this.setUser(response.data.session.usuario);
+            //             this.$store.commit('auth/setUser', response.data.session.usuario)
+            //         })
+            //         .catch((error) => {
+            //             console.log(error);
+            //         })
             // }
 
-            // changeUsername(){
-            //     this.$store.commit('user/setUsername', this.username);
+            // async fetchAdesoes(){
+            //     await 
             // }
+
         },
-
-        // computed: {
-        //     username: {
-        //         get(){
-        //             return this.$store.state.users.username;
-        //         },
-        //         set(value){
-        //             this.$store.commit('users/setUsername', value);
-        //         }
-        //     }
-        // },
-
+        
         watch: {
             selectedBrands: 'filterVehicles',
             selectedPurpose: 'filterVehicles',
             plateInput: 'filterVehicles'
         },
-
+        
         mounted(){
             this.vehicles = JSON.parse(localStorage.getItem('vehicles')) !== null ? JSON.parse(localStorage.getItem('vehicles')) : [];
             this.activities = JSON.parse(localStorage.getItem('activityHistory')) !== null ? JSON.parse(localStorage.getItem('activityHistory')) : [];
             this.filteredVehicles = this.vehicles;
-
+            
+            // this.fetchUsuario();
+            //this.fetchAdesoes();
+            
             // this.buscaDados();
-            console.log(this.$auth.user.usuario)
-        }
-    }
-</script>
+            // console.log(this.$auth.user)
+        },
+        
+        // async fetch(){
+            //     // console.log('teste');
+            //     // await this.$auth.fetchUser()
+            //     //     .then((response) => {
+                //     //         console.log(response.data.session.usuario);
+                //     //         this.setUser(response.data.session.usuario);
+                //     //     })
+                //     //     .catch((error) => {
+                    //     //         console.log(error);
+                    //     //     })
+                    // }
+
+
+
+
+                    // TESTANDO AXIOS
+                    // async buscaDados(){
+                    //     const cep = '89208320';
+                    //     try{
+                    //         const result = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+                    //         console.log(result.data);
+                    //     } catch(error){
+                    //         console.log(error.message);
+                    //     } finally{
+                    //         console.log('loading = false');
+                    //     }
+                    
+                    //     // EXEMPLO COM FETCH
+                    //     // const users = fetch('https://api.github.com/users')
+                    //     //     .then(res => res.json())
+                    //     //     // .then(res => { console.log(res) });
+                    //     // console.log("segundo console: ", users);
+                    // }
+                    
+                    // changeUsername(){
+                    //     this.$store.commit('user/setUsername', this.username);
+                    // }
+                }
+            </script>
 
 <style>
 
-    #register-and-filters{
-        display: flex;
-        justify-content: space-between;
+#register-and-filters{
+    display: flex;
+    justify-content: space-between;
         align-items: center;
     }
 

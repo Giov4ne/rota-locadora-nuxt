@@ -73,10 +73,11 @@ export default {
     cookie: {
       prefix: 'auth.'
     },
-    redirect: {
-      login: '/auth/login',
-      logout: false
-    },
+    // redirect: {
+    //   login: '/auth/login',
+    //   logout: false
+    // },
+    redirect: false,
     strategies: {
       local: {
         scheme: 'refresh',
@@ -93,13 +94,13 @@ export default {
         },
         user: {
           property: 'session',
-          autoFetch: false
+          autoFetch: true
         },
         endpoints: {
           login: { url: '/login', method: 'post' },
           // refresh: { url: '/refresh-token', method: 'post' },
           user: { url: '/me', method: 'get' },
-          // logout: { url: '/logout', method: 'get' }
+          logout: { url: '/logout', method: 'get' }
         }
       }
     },

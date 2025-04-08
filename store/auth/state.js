@@ -1,3 +1,7 @@
 export default () => ({
-    user: Object
+    user: {
+        usuario: {
+            nome: ''
+        }
+    }
 })

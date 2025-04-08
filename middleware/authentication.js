@@ -1,33 +1,22 @@
-export default function ({ route, redirect }) {
+export default function ({ route, redirect, $auth }) {
        
-    const token = localStorage.getItem('auth._token.local') ?? null;
+    const token = localStorage.getItem("auth._token.local");
+    // console.log(token !== 'false')
     //const isAuthenticated = store.state.users.authenticated;
-
-    if (!token && route.path !== '/login' && route.path !== '/signup') {
+    
+    if (token === 'false' && route.path !== '/login' && route.path !== '/signup') {
+        localStorage.removeItem('auth._refresh_token.local');
+        localStorage.removeItem('auth._refresh_token_expiration.local');
+        localStorage.removeItem('auth._token_expiration.local');
+        localStorage.removeItem('auth.strategy');
         return redirect('/login'); // Permite acesso ao login e cadastro sem estar autenticado
-    } else if (token && (route.path === '/login' || route.path === '/signup')) {
+    } else if (token !== 'false' && (route.path === '/login' || route.path === '/signup')) {
         return redirect('/home'); // Se estiver logado, não pode acessar login nem cadastro
-    } else {
-        return redirect();
+    } else{
+        $auth.fetchUser()
+        // return redirect();
     }
     
 }
 
-/* 
-Se eu quisesse fazer essa lógica de autenticação utilizando store (apenas como exemplo didático), poderia fazer dessa forma:
 
-export default function({ route, redirect, store }) {
-
-    const user = store.state.user.username;
-
-    if (user.length === 0 && route.path !== '/login' && route.path !== '/signup') {
-        return redirect('/login'); // Permite acesso ao login e cadastro sem estar autenticado
-    } else if (user.length > 0 && (route.path === '/login' || route.path === '/signup')) {
-        return redirect('/home'); // Se estiver logado, não pode acessar login nem cadastro
-    } else {
-        return redirect();
-    }
-
-}
-
-*/
