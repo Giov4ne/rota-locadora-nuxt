@@ -1,6 +1,5 @@
 <template>
     <div>
-        <!-- <MyHeader></MyHeader> -->
         <div class="container">
             <section id="register-and-filters">
                 <button id="register-vehicle-btn" @click="openVehicleEditRegistration">Cadastrar Veículo</button>
@@ -17,16 +16,6 @@
                         <label for="plate">Placa</label>
                         <input type="text" class="inputs" name="plate" placeholder="Digite a placa ou a cor do veículo" v-model="plateInput">
                     </div>
-
-
-                    <!-- <v-text-field
-                        label="Placa"
-                        placeholder="Digite a placa ou a cor do veículo"
-                        outlined
-                    ></v-text-field> -->
-
-
-                    
                     <div id="search-erase">
                         <button class="search-btn">
                             <i class="fas fa-magnifying-glass"></i>
@@ -44,26 +33,26 @@
                     <thead>
                         <tr>
                             <th>Placa</th>
-                            <th>Marca/Modelo</th>
-                            <th>Ano</th>
-                            <th>Cor</th>
-                            <th>Propósito de uso</th>
-                            <th>Zero-quilômetro?</th>
-                            <th>Nível de conforto</th>
-                            <th>Local de repouso (lat, long)</th>
+                            <th>Descrição</th>
+                            <th>Tipo</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Ano/Modelo</th>
+                            <th>QR Code</th>
+                            <th>Última Posição</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(vehicle, index) in filteredVehicles" :key="index">
-                            <td>{{ vehicle.plate }}</td>
-                            <td>{{ vehicle.brand }} {{ vehicle.model }}</td>
-                            <td>{{ vehicle.year }}</td>
-                            <td>{{ vehicle.color }}</td>
-                            <td>{{ vehicle.purpose }}</td>
-                            <td>{{ vehicle.zero ? 'Sim' : 'Não' }}</td>
-                            <td>{{ vehicle.confortLevel }} <i class="fas fa-star"></i></td>
-                            <td>{{ vehicle.latitude }}, {{ vehicle.longitude }}</td>
+                        <tr v-for="(vehicle, index) in adesoes" :key="index">
+                            <td>{{ vehicle.vei_placa }}</td>
+                            <td>{{ vehicle.vei_descricao }}</td>
+                            <td>{{ vehicle.tipo_veiculo !== null ? vehicle.tipo_veiculo : 'Não informado'  }}</td>
+                            <td>{{ vehicle.marca_id }}</td>
+                            <td>{{ vehicle.modelo_id }}</td>
+                            <td>{{ vehicle.vei_ano_modelo !== null ? vehicle.vei_ano_modelo : 'Não informado' }}</td>
+                            <td>{{ vehicle.qrcode_id !== null ? vehicle.qrcode_id : 'Não informado' }}</td>
+                            <td>{{ vehicle.updated !== null ? vehicle.updated : 'Sem posição' }}</td>
                             <td>
                                 <div class="options-dropdown-container" ref="dropdowns">
                                     <span class="ellipsis" @click="optionsToggleDropdown(index)">...</span>
@@ -81,7 +70,11 @@
                         </tr>
                     </tbody>
                 </table>
+                
                 <p v-else id="no-vehicles-msg">Nenhum veículo encontrado...</p>
+                
+                
+                
             </main>
             <VehicleEditRegistration 
                 v-if="vehicleEditRegistrationIsOpen" 
@@ -110,6 +103,8 @@ import VehicleEditRegistration from '../components/VehicleEditRegistration.vue';
 import VehicleDetails from '../components/VehicleDetails.vue';
 import MyPagination from '../components/MyPagination.vue';
 import axios from 'axios';
+import { ADESOES } from '../utils/storeTypes/adesoes';
+//import { mapGetters } from 'vuex';
 
     export default{
         
@@ -143,24 +138,6 @@ import axios from 'axios';
                     { title: "Peugeot" },
                     { title: "Volkswagen" }
                 ],
-                /* 
-                VALORES DE EXEMPLO
-                { plate: "ABC-1234", brand: "BMW", model: "Série 3 Sport", year: 2021, color: "Preta", purpose: "Uso pessoal", zero: true, confortLevel: 5, latitude: "-26.278385", longitude: "-48.865418" },
-
-                { plate: "WXS-3321", brand: "Chevrolet", model: "Onix", year: 2021, color: "Prata", purpose: "Veículo para locação", zero: true, confortLevel: 4, latitude: "-1.22", longitude: "-57.66" },
-
-                { plate: "KLS-1278", brand: "Peugeot", model: "208", year: 2024, color: "Preta", purpose: "Veículo para locação", zero: false, confortLevel: 3, latitude: "-30.96", longitude: "-39.71" },
-
-                { plate: "ZHG-9585", brand: "Audi", model: "A3", year: 2024, color: "Vermelho", purpose: "Veículo para locação", zero: false, confortLevel: 5, latitude: "-27.63", longitude: "-35.16" },
-
-                { plate: "NBY-6617", brand: "Jeep", model: "Renegade", year: 2023, color: "Vermelho", purpose: "Veículo para locação", zero: true, confortLevel: 5, latitude: "-2.49", longitude: "-46.70" },
-
-                { plate: "HAN-0693", brand: "Ford", model: "Fiesta", year: 2019, color: "Prata", purpose: "Uso pessoal", zero: false, confortLevel: 3, latitude: "-15.32", longitude: "-41.78" },
-
-                { plate: "YMO-2420", brand: "Fiat", model: "Pulse", year: 2020, color: "Preta", purpose: "Veículo para locação", zero: false, confortLevel: 5, latitude: "-14.92", longitude: "-56.12" },
-
-                { plate: "MKU-2327", brand: "Ford", model: "KA", year: 2019, color: "Preta", purpose: "Veículo para locação", zero: false, confortLevel: 2, latitude: "-23.41", longitude: "-52.95" } 
-                */
                 optionsIsOpen: null,
                 vehicleEditRegistrationIsOpen: false,
                 vehicleDetailsIsOpen: false,
@@ -268,25 +245,21 @@ import axios from 'axios';
                 setTimeout(() => {
                     this.successMsg = '';
                 }, 5000);
+            },
+
+            async loadVeiculos(){
+                const veiculos = await this.$store.dispatch('adesoes/' + ADESOES);
+                this.$store.commit('adesoes/setAdesoes', veiculos.data.data);
             }
-            ,
 
-            // async fetchUsuario(){
-            //     return await this.$auth.fetchUser()
-            //         .then((response) => {
-            //             // console.log(response.data.session.usuario);
-            //             // this.setUser(response.data.session.usuario);
-            //             this.$store.commit('auth/setUser', response.data.session.usuario)
-            //         })
-            //         .catch((error) => {
-            //             console.log(error);
-            //         })
-            // }
+        },
 
-            // async fetchAdesoes(){
-            //     await 
-            // }
-
+        computed: {
+            // ...mapGetters('adesoes/', ['adesoes'])
+            
+            adesoes(){
+                return this.$store.state.adesoes.adesoes;
+            }
         },
         
         watch: {
@@ -299,52 +272,12 @@ import axios from 'axios';
             this.vehicles = JSON.parse(localStorage.getItem('vehicles')) !== null ? JSON.parse(localStorage.getItem('vehicles')) : [];
             this.activities = JSON.parse(localStorage.getItem('activityHistory')) !== null ? JSON.parse(localStorage.getItem('activityHistory')) : [];
             this.filteredVehicles = this.vehicles;
-            
-            // this.fetchUsuario();
-            //this.fetchAdesoes();
-            
-            // this.buscaDados();
-            // console.log(this.$auth.user)
+
+            this.loadVeiculos();
         },
         
-        // async fetch(){
-            //     // console.log('teste');
-            //     // await this.$auth.fetchUser()
-            //     //     .then((response) => {
-                //     //         console.log(response.data.session.usuario);
-                //     //         this.setUser(response.data.session.usuario);
-                //     //     })
-                //     //     .catch((error) => {
-                    //     //         console.log(error);
-                    //     //     })
-                    // }
 
-
-
-
-                    // TESTANDO AXIOS
-                    // async buscaDados(){
-                    //     const cep = '89208320';
-                    //     try{
-                    //         const result = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
-                    //         console.log(result.data);
-                    //     } catch(error){
-                    //         console.log(error.message);
-                    //     } finally{
-                    //         console.log('loading = false');
-                    //     }
-                    
-                    //     // EXEMPLO COM FETCH
-                    //     // const users = fetch('https://api.github.com/users')
-                    //     //     .then(res => res.json())
-                    //     //     // .then(res => { console.log(res) });
-                    //     // console.log("segundo console: ", users);
-                    // }
-                    
-                    // changeUsername(){
-                    //     this.$store.commit('user/setUsername', this.username);
-                    // }
-                }
+    }
             </script>
 
 <style>
