@@ -1,16 +1,32 @@
 <template>
     <section class="pagination">
-        <button class="pagination-btns pagination-arrows arrow-blocked">&lt;</button>
-        <button class="pagination-btns selected-pagination">1</button>
-        <button class="pagination-btns">2</button>
-        <button class="pagination-btns">3</button>
+        <button class="pagination-btns pagination-arrows arrow-blocked"><</button>
+        <button class="pagination-btns selected-pagination" @click="changePage">1</button>
+        <button class="pagination-btns" @click="changePage">2</button>
+        <button class="pagination-btns" @click="changePage">3</button>
         <button class="pagination-btns pagination-arrows">></button>
     </section>
 </template>
 
 <script>
     export default{
-        name: 'MyPagination'
+        name: 'MyPagination',
+        props:{
+            value: {
+                type: Number,
+                required: true,
+            },
+            limit: Number
+        },
+        methods:{
+            changePage(event){
+                // this.toggleSelectedClass(event);
+                this.$emit("input", (event.target.innerText - 1) * this.limit);
+            },
+            // toggleSelectedClass(event){
+            //     event.target.classList.add('selected-pagination');
+            // }
+        }
     }
 </script>
 
