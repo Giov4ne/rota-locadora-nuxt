@@ -14,10 +14,10 @@
                     </div>
                     <div class="custom-field">
                         <label for="plate">Placa</label>
-                        <input type="text" class="inputs" name="plate" placeholder="Digite a placa ou a cor do veículo" v-model="plateInput">
+                        <input type="text" class="inputs" name="plate" placeholder="Digite a placa ou a cor do veículo" @keyup.enter="loadVeiculos()" v-model="plateInput">
                     </div>
                     <div id="search-erase">
-                        <button class="search-btn">
+                        <button class="search-btn" @click="loadVeiculos()">
                             <i class="fas fa-magnifying-glass"></i>
                             
                         </button>
@@ -29,7 +29,7 @@
                 </div>
             </section>
             <main>
-                <table v-if="filteredVehicles.length">
+                <table v-if="adesoes">
                     <thead>
                         <tr>
                             <th>Placa</th>
@@ -48,7 +48,7 @@
                             <td>{{ vehicle.vei_placa }}</td>
                             <td>{{ vehicle.vei_descricao }}</td>
                             <td>{{ vehicle.tipo_veiculo !== null ? vehicle.tipo_veiculo : 'Não informado'  }}</td>
-                            <td>{{ vehicle.marca_id }}</td>
+                            <td>{{ vehicle.marca_id !== null ? vehicle.marca_id : 'Não informado' }}</td>
                             <td>{{ vehicle.modelo_id }}</td>
                             <td>{{ vehicle.vei_ano_modelo !== null ? vehicle.vei_ano_modelo : 'Não informado' }}</td>
                             <td>{{ vehicle.qrcode_id !== null ? vehicle.qrcode_id : 'Não informado' }}</td>
@@ -70,12 +70,11 @@
                         </tr>
                     </tbody>
                 </table>
-                
-                <p v-else id="no-vehicles-msg">Nenhum veículo encontrado...</p>
-                
-                
-                
+                <p v-else class="loading-msg">Carregando...</p>
+                <!-- <p v-else id="no-vehicles-msg">Nenhum veículo encontrado...</p> -->    
             </main>
+
+            
             <VehicleEditRegistration 
                 v-if="vehicleEditRegistrationIsOpen" 
                 :vehicle="vehicleToEdit" 
@@ -84,12 +83,16 @@
                 @onClose="closeVehicleEditRegistration"
                 >
             </VehicleEditRegistration>
+
             <VehicleDetails
                 v-if="vehicleDetailsIsOpen"
                 :vehicle="vehicleToSeeDetails"
                 @onCloseDetails="closeVehicleDetails"
             ></VehicleDetails>
-            <MyPagination v-if="filteredVehicles.length >= 10"></MyPagination>
+
+            <MyPagination v-model="page" :limit="limit"></MyPagination>
+            <!-- <MyPagination v-if="adesoes.length >= 10"></MyPagination> -->
+            <!-- <MyPagination v-if="filteredVehicles.length >= 10"></MyPagination> -->
         </div>
         <span v-if="successMsg !== ''" class="success-message">{{ successMsg }}</span>
     </div>
@@ -102,7 +105,7 @@ import PurposesDropdown from '../components/PurposesDropdown.vue';
 import VehicleEditRegistration from '../components/VehicleEditRegistration.vue';
 import VehicleDetails from '../components/VehicleDetails.vue';
 import MyPagination from '../components/MyPagination.vue';
-import axios from 'axios';
+// import axios from 'axios';
 import { ADESOES } from '../utils/storeTypes/adesoes';
 //import { mapGetters } from 'vuex';
 
@@ -143,7 +146,10 @@ import { ADESOES } from '../utils/storeTypes/adesoes';
                 vehicleDetailsIsOpen: false,
                 vehicleToEdit: null,
                 vehicleToSeeDetails: null,
-                successMsg: ''
+                successMsg: '',
+
+                page: 0,
+                limit: 12,
             };
         },
 
@@ -225,6 +231,20 @@ import { ADESOES } from '../utils/storeTypes/adesoes';
                 this.showSuccessMsg('Veículo deletado com sucesso!');
             },
 
+            // async deleteVehicle(vehicle) {
+            //     await this.$store.dispatch('adesoes/' + EXCLUIR_ADESAO, vehicle.id);
+            //     this.loadVeiculos()
+            //     // this.vehicles = this.vehicles.filter(vehicle => vehicle.plate !== vehicleId);
+            //     // localStorage.setItem('vehicles', JSON.stringify(this.vehicles));
+            //     // this.filteredVehicles = this.vehicles;
+            //     const today = new Date().toLocaleDateString('pt-BR');
+            //     const timeNow = new Date().toLocaleTimeString('pt-BR', { hour12: false });
+            //     this.activities.push({ type: 'delete', plate: vehicle.vei_placa, date: today, time: timeNow });
+            //     localStorage.setItem('activityHistory', JSON.stringify(this.activities));
+            //     this.closeOptions();
+            //     this.showSuccessMsg('Veículo deletado com sucesso!');
+            // },
+
             openVehicleEditRegistration(){
                 this.vehicleEditRegistrationIsOpen = true;
             },
@@ -232,6 +252,7 @@ import { ADESOES } from '../utils/storeTypes/adesoes';
             closeVehicleEditRegistration(){
                 this.vehicleEditRegistrationIsOpen = false;
                 this.vehicleToEdit = null;
+                this.loadVeiculos();
             },
 
             closeVehicleDetails(){
@@ -248,8 +269,29 @@ import { ADESOES } from '../utils/storeTypes/adesoes';
             },
 
             async loadVeiculos(){
-                const veiculos = await this.$store.dispatch('adesoes/' + ADESOES);
-                this.$store.commit('adesoes/setAdesoes', veiculos.data.data);
+                try{
+                    const veiculos = await this.$store.dispatch('adesoes/' + ADESOES, {
+                        params: {
+                            where: {
+                                // ...(this.plateInput.length && {
+                                //     vei_placa: this.plateInput
+                                // }),
+                                dt_aquisicao: {
+                                    $ne: null
+                                }
+                            },
+                            // like: this.plateInput,
+                            order: ["vei_descricao ASC"],
+                            limit: this.limit,
+                            page: this.page
+                        },
+                        like: this.plateInput
+                    })
+                    this.$store.commit('adesoes/setAdesoes', veiculos.data.data);
+                    
+                } catch{
+                    this.$store.commit('adesoes/setAdesoes', []);
+                }
             }
 
         },
@@ -265,7 +307,8 @@ import { ADESOES } from '../utils/storeTypes/adesoes';
         watch: {
             selectedBrands: 'filterVehicles',
             selectedPurpose: 'filterVehicles',
-            plateInput: 'filterVehicles'
+            plateInput: 'filterVehicles',
+            page: 'loadVeiculos'
         },
         
         mounted(){
@@ -552,7 +595,7 @@ import { ADESOES } from '../utils/storeTypes/adesoes';
         height: 100%;
     }
 
-    #no-vehicles-msg{
+    #no-vehicles-msg, .loading-msg{
         margin: 80px 20px;
         text-align: center;
         font-size: 18px;
