@@ -201,7 +201,7 @@ import { mapGetters } from 'vuex';
         }
     }
 
-    .router-link-active.page, .router-link-exact-active.page {
+    .nuxt-link-active.page, .nuxt-link-exact-active.page {
         background-color: #007DF01A;
         color: #007DF0;
     }

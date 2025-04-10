@@ -15,17 +15,17 @@ export default{
         });
     },
 
-    [NOVA_ADESAO](state, payload){
-        return new Promise((resolve, reject) => {
-            this.$axios.post('/adesoes', payload)
-                .then(response => {
-                    resolve(response);
-                })
-                .catch(error => {
-                    reject(new Error(error));
-                })
-        });
-    },
+    // [NOVA_ADESAO](state, payload){
+    //     return new Promise((resolve, reject) => {
+    //         this.$axios.post('/adesoes', payload)
+    //             .then(response => {
+    //                 resolve(response);
+    //             })
+    //             .catch(error => {
+    //                 reject(new Error(error));
+    //             })
+    //     });
+    // },
 
     // [EXCLUIR_ADESAO](state, payload){
     //     return new Promise((resolve, reject) => {

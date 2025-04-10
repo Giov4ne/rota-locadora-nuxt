@@ -1,6 +1,6 @@
 <template>
     <div class="dropdown custom-dropbox">
-        <label>Marca</label>
+        <label>Tipo do veículo</label>
         <button class="dropdown-button" @click="brandsToggleDropdown">
             <span v-if="!checkbox" class="dropdown-selected">
                 <div v-if="localSelectedBrand !== ''">
@@ -10,11 +10,13 @@
                     <span class="close-selected" @click.stop="clearBrandsSelection">x</span>
                 </div>
                 <span v-else class="dropdown-text">
-                    Selecione a marca do veículo
+                    <!-- Selecione a marca do veículo -->
+                     Selecione o tipo do veículo
                 </span>
             </span>
             <span v-else-if="selectedBrands.length === 0" class="dropdown-text">
-                Selecione a marca do veículo
+                <!-- Selecione a marca do veículo -->
+                Selecione o tipo do veículo
             </span>
             <span v-else class="dropdown-selected">
                 <span class="dropdown-selected-container">
@@ -31,14 +33,14 @@
         </button>
         <transition name="fade">
             <div v-if="brandOptionsIsOpen" class="dropdown-menu">
-                <label class="dropdown-menu-title">Marca</label>
+                <label class="dropdown-menu-title"><!--Marca-->Tipo</label>
                 <hr>
                 <div class="dropdown-menu-content">
                     <div v-if="checkbox">
                         <label v-for="brand in brandOptions" :key="brand.value">
                             <input 
                                 type="checkbox"
-                                :value="brand.label"
+                                :value="brand.value"
                                 v-model="selectedBrands"
                                 @change="updateSelectedBrands"
                             />
@@ -69,16 +71,20 @@
                 selectedBrands: this.checkbox ? (this.modelValue || []) : [],
                 localSelectedBrand: this.checkbox ? '' : (this.modelValue || ''),
                 brandOptions: [
-                    { label: "Audi", value: "audi" },
-                    { label: "BMW", value: "bmw" },
-                    { label: "Chevrolet", value: "chevrolet" },
-                    { label: "Fiat", value: "fiat" },
-                    { label: "Ford", value: "ford" },
-                    { label: "Jeep", value: "jeep" },
-                    { label: "Mitsubishi", value: "mitsubishi" },
-                    { label: "Mercedes-Benz", value:  "mercedes-benz"},
-                    { label: "Peugeot", value: "peugeot" },
-                    { label: "Volkswagen", value: "volkswagen" }
+                    // { label: "Audi", value: "audi" },
+                    // { label: "BMW", value: "bmw" },
+                    // { label: "Chevrolet", value: "chevrolet" },
+                    // { label: "Fiat", value: "fiat" },
+                    // { label: "Ford", value: "ford" },
+                    // { label: "Jeep", value: "jeep" },
+                    // { label: "Mitsubishi", value: "mitsubishi" },
+                    // { label: "Mercedes-Benz", value:  "mercedes-benz"},
+                    // { label: "Peugeot", value: "peugeot" },
+                    // { label: "Volkswagen", value: "volkswagen" }
+                    { label: "Carro", value: "carro" },
+                    { label: "Moto", value: "moto" },
+                    { label: "Caminhão", value:  "caminhao"},
+                    { label: "Máquina", value: "maquina" }
                 ]
             }
         },
