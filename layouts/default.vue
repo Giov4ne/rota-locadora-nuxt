@@ -29,6 +29,10 @@
     border: none;
   }
 
+  .home-activity-container{
+      padding-top: 15px;
+  }
+
   .login-signin-container{
     background-image: url('./assets/cars-background.png');
     background-repeat: no-repeat;

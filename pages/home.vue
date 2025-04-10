@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="home-activity-container">
         <div class="container">
             <section id="register-and-filters">
                 <button id="register-vehicle-btn" @click="openVehicleEditRegistration">Cadastrar Veículo</button>
@@ -8,13 +8,12 @@
                         <BrandsDropdown ref="brandsDropdownRef" :checkbox=true v-model="selectedBrands"></BrandsDropdown>
                     </div>
 
-
                     <div class="dropdown-boxes">
                         <PurposesDropdown ref="purposesDropdownRef" v-model="selectedPurpose"></PurposesDropdown>
                     </div>
                     <div class="custom-field">
                         <label for="plate">Placa</label>
-                        <input type="text" class="inputs" name="plate" placeholder="Digite a placa ou a cor do veículo" @keyup.enter="loadVeiculos()" v-model="plateInput">
+                        <input type="text" class="inputs" name="plate" placeholder="Digite a placa ou a descrição do veículo" @keyup.enter="loadVeiculos()" v-model="plateInput">
                     </div>
                     <div id="search-erase">
                         <button class="search-btn" @click="loadVeiculos()">
@@ -29,7 +28,7 @@
                 </div>
             </section>
             <main>
-                <table v-if="adesoes">
+                <table v-if="adesoes.length">
                     <thead>
                         <tr>
                             <th>Placa</th>
@@ -38,7 +37,7 @@
                             <th>Marca</th>
                             <th>Modelo</th>
                             <th>Ano/Modelo</th>
-                            <th>QR Code</th>
+                            <th>Tipo Negociação</th>
                             <th>Última Posição</th>
                             <th></th>
                         </tr>
@@ -51,7 +50,7 @@
                             <td>{{ vehicle.marca_id !== null ? vehicle.marca_id : 'Não informado' }}</td>
                             <td>{{ vehicle.modelo_id }}</td>
                             <td>{{ vehicle.vei_ano_modelo !== null ? vehicle.vei_ano_modelo : 'Não informado' }}</td>
-                            <td>{{ vehicle.qrcode_id !== null ? vehicle.qrcode_id : 'Não informado' }}</td>
+                            <td>{{ vehicle.tipo_negociacao !== null ? vehicle.tipo_negociacao : 'Não informado' }}</td>
                             <td>{{ vehicle.updated !== null ? vehicle.updated : 'Sem posição' }}</td>
                             <td>
                                 <div class="options-dropdown-container" ref="dropdowns">
@@ -90,7 +89,7 @@
                 @onCloseDetails="closeVehicleDetails"
             ></VehicleDetails>
 
-            <MyPagination v-model="page" :limit="limit"></MyPagination>
+            <MyPagination v-if="adesoes.length" v-model="page" :limit="limit"></MyPagination>
             <!-- <MyPagination v-if="adesoes.length >= 10"></MyPagination> -->
             <!-- <MyPagination v-if="filteredVehicles.length >= 10"></MyPagination> -->
         </div>
@@ -105,9 +104,7 @@ import PurposesDropdown from '../components/PurposesDropdown.vue';
 import VehicleEditRegistration from '../components/VehicleEditRegistration.vue';
 import VehicleDetails from '../components/VehicleDetails.vue';
 import MyPagination from '../components/MyPagination.vue';
-// import axios from 'axios';
 import { ADESOES } from '../utils/storeTypes/adesoes';
-//import { mapGetters } from 'vuex';
 
     export default{
         
@@ -273,14 +270,19 @@ import { ADESOES } from '../utils/storeTypes/adesoes';
                     const veiculos = await this.$store.dispatch('adesoes/' + ADESOES, {
                         params: {
                             where: {
-                                // ...(this.plateInput.length && {
-                                //     vei_placa: this.plateInput
-                                // }),
+                                ...(this.selectedBrands.length && {
+                                    tipo_veiculo: {
+                                        $in: this.selectedBrands
+                                    }
+                                }),
+                                ...(this.selectedPurpose.length && {
+                                    tipo_negociacao: this.selectedPurpose
+                                }),
                                 dt_aquisicao: {
                                     $ne: null
                                 }
+
                             },
-                            // like: this.plateInput,
                             order: ["vei_descricao ASC"],
                             limit: this.limit,
                             page: this.page
@@ -288,7 +290,6 @@ import { ADESOES } from '../utils/storeTypes/adesoes';
                         like: this.plateInput
                     })
                     this.$store.commit('adesoes/setAdesoes', veiculos.data.data);
-                    
                 } catch{
                     this.$store.commit('adesoes/setAdesoes', []);
                 }
@@ -300,14 +301,17 @@ import { ADESOES } from '../utils/storeTypes/adesoes';
             // ...mapGetters('adesoes/', ['adesoes'])
             
             adesoes(){
+                console.log(this.$store.state.adesoes.adesoes);
                 return this.$store.state.adesoes.adesoes;
             }
         },
         
         watch: {
-            selectedBrands: 'filterVehicles',
-            selectedPurpose: 'filterVehicles',
-            plateInput: 'filterVehicles',
+            // selectedBrands: 'filterVehicles',
+            // selectedPurpose: 'filterVehicles',
+            // plateInput: 'filterVehicles',
+            selectedBrands: 'loadVeiculos',
+            selectedPurpose: 'loadVeiculos',
             page: 'loadVeiculos'
         },
         
@@ -451,6 +455,7 @@ import { ADESOES } from '../utils/storeTypes/adesoes';
     }
 
     .dropdown-text{
+        font-size: 12px;
         color: #A9A7A9;
     }
     

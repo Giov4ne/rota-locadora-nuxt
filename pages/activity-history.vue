@@ -1,5 +1,5 @@
 <template>
-    <div class="meucard">
+    <div class="home-activity-container">
         <!-- <MyHeader></MyHeader> -->
         <div class="container">
             <section id="filters-section">

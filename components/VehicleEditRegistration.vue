@@ -50,7 +50,7 @@
             </div>
         </form>
     
-        <!-- <form v-else @submit.prevent="validateForm" id="vehicle-edit-registration-form">
+        <form v-else @submit.prevent="validateForm" id="vehicle-edit-registration-form">
             <div class="form-header">
                 <h2 class="form-header-title">Cadastro de Veículo</h2>
                 <span class="close-form" @click="close">X</span>
@@ -97,8 +97,8 @@
                 </label>
                 <input type="submit" id="register-vehicle-form-btn" value="Salvar">
             </div>
-        </form> -->
-        <form v-else @submit.prevent="validateForm" id="vehicle-edit-registration-form">
+        </form>
+        <!-- <form v-else @submit.prevent="validateForm" id="vehicle-edit-registration-form">
             <div class="form-header">
                 <h2 class="form-header-title">Cadastro de Veículo</h2>
                 <span class="close-form" @click="close">X</span>
@@ -109,7 +109,7 @@
                     <input v-model="newVehicle.vei_placa" @input="formatPlate" minlength="8" maxlength="8" type="text" class="inputs" name="plate" required placeholder="Digite a placa do veículo" id="plate-c">
                 </div>
                 <div id="brand">
-                    <!-- <BrandsDropdown :checkbox=false></BrandsDropdown> -->
+                    <BrandsDropdown :checkbox=false></BrandsDropdown>
                      
                 </div> 
                 <div class="custom-field" id="model">
@@ -120,12 +120,12 @@
                     <label for="year-c">Ano</label>
                     <input v-model="newVehicle.vei_ano_modelo" minlength="4" maxlength="4" type="text" class="inputs" name="year" required placeholder="Selecione o ano do veículo" id="year-c">
                 </div>
-                <!-- <div class="custom-field" id="color"> -->
-                    <!-- <label for="color-c">Cor</label>
-                    <input type="text" class="inputs" name="color" required placeholder="Digite a cor do veículo" id="color-c"> -->
-                <!-- </div> -->
+               <div class="custom-field" id="color">
+                   <label for="color-c">Cor</label>
+                    <input type="text" class="inputs" name="color" required placeholder="Digite a cor do veículo" id="color-c">
+               </div>
                 <div id="purpose">
-                    <!-- <PurposesDropdown></PurposesDropdown> -->
+                   <PurposesDropdown></PurposesDropdown>
                 </div>
                 <p id="resting-place">Números de identificação</p>
                 <div class="custom-field" id="latitude">
@@ -137,20 +137,20 @@
                     <input v-model="newVehicle.modelo_id" type="text" class="inputs" name="longitude" required placeholder="Digite a longitude" id="longitude-c">
                 </div>
                 <div id="confort-level">
-                    <!-- <p id="confort-level-p">N° QR Code</p> -->
-                    <!-- <StarRating v-model="newVehicle.qrcode_id"></StarRating> -->
-                    <!-- <div class="custom-field">
+                   <p id="confort-level-p">N° QR Code</p>
+                   <StarRating v-model="newVehicle.qrcode_id"></StarRating>
+                   <div class="custom-field">
                         <label for="latitude-c">N° QR Code</label>
                         <input v-model="newVehicle.qrcode_id" type="text" class="inputs" name="latitude" required placeholder="Digite o QR Code">
-                    </div> -->
+                    </div>
                 </div>
-                <!-- <label id="zero" for="zero-c">
+               <label id="zero" for="zero-c">
                     <input type="checkbox" name="zero" id="zero-c">
                     Veículo zero-quilômetro
-                </label> -->
+                </label>
                 <input type="submit" id="register-vehicle-form-btn" value="Salvar">
             </div>
-        </form>
+        </form> -->
         <span v-if="errorMsg !== ''" class="error-message">{{ errorMsg }}</span>
     </div>
 </template>
@@ -179,26 +179,26 @@ import StarRating from './StarRating.vue';
 
         data(){
             return {
-                // newVehicle: { 
-                //     plate: "",
-                //     brand: "",
-                //     model: "",
-                //     year: "",
-                //     color: "",
-                //     purpose: "",
-                //     zero: false,
-                //     confortLevel: 0,
-                //     latitude: "",
-                //     longitude: "" 
-                // },
-                newVehicle: {
-                    vei_placa: "", //
-                    vei_descricao: "", //
-                    tipo_veiculo: "teste", //
-                    marca_id: 0, //
-                    modelo_id: 0, //
-                    vei_ano_modelo: 0, // 
+                newVehicle: { 
+                    plate: "",
+                    brand: "",
+                    model: "",
+                    year: "",
+                    color: "",
+                    purpose: "",
+                    zero: false,
+                    confortLevel: 0,
+                    latitude: "",
+                    longitude: "" 
                 },
+                // newVehicle: {
+                //     vei_placa: "", //
+                //     vei_descricao: "", //
+                //     tipo_veiculo: "teste", //
+                //     marca_id: 0, //
+                //     modelo_id: 0, //
+                //     vei_ano_modelo: 0, // 
+                // },
                     
                 vehicleToEdit: this.vehicle 
                 ? { ...this.vehicle } // Copia para não alterar diretamente a prop
@@ -216,30 +216,30 @@ import StarRating from './StarRating.vue';
             isEditing(){
                 return this.vehicle !== null;
             },
-            // isPlateValid(){
-            //     return /^[A-Z]{3}-\d{4}$/.test(this.isEditing ? this.vehicleToEdit.plate : this.newVehicle.plate);
-            // },
-            // isBrandSelected(){
-            //     return this.isEditing ? this.vehicleToEdit.brand !== '' : this.newVehicle.brand !== '';
-            // },
-            // isYearValid(){
-            //     const year = parseInt(this.isEditing ? this.vehicleToEdit.year : this.newVehicle.year);
-            //     return year >= 1880 && year <= new Date().getFullYear();
-            // },
-            // isPurposeSelected(){
-            //     return this.isEditing ? this.vehicleToEdit.purpose !== '' : this.newVehicle.purpose !== '';
-            // },
-            // isLatLongValid(){
-            //     const lat = parseFloat(this.isEditing ? this.vehicleToEdit.latitude : this.newVehicle.latitude);
-            //     const long = parseFloat(this.isEditing ? this.vehicleToEdit.longitude : this.newVehicle.longitude);
-            //     return (lat >= -90 && lat <= 90) && (long >= -180 && long <= 180);
-            // },
-            // isConfortLevelSelected(){
-            //     return this.isEditing ? this.vehicleToEdit.confortLevel > 0 : this.newVehicle.confortLevel > 0;
-            // },
+            isPlateValid(){
+                return /^[A-Z]{3}-\d{4}$/.test(this.isEditing ? this.vehicleToEdit.plate : this.newVehicle.plate);
+            },
+            isBrandSelected(){
+                return this.isEditing ? this.vehicleToEdit.brand !== '' : this.newVehicle.brand !== '';
+            },
+            isYearValid(){
+                const year = parseInt(this.isEditing ? this.vehicleToEdit.year : this.newVehicle.year);
+                return year >= 1880 && year <= new Date().getFullYear();
+            },
+            isPurposeSelected(){
+                return this.isEditing ? this.vehicleToEdit.purpose !== '' : this.newVehicle.purpose !== '';
+            },
+            isLatLongValid(){
+                const lat = parseFloat(this.isEditing ? this.vehicleToEdit.latitude : this.newVehicle.latitude);
+                const long = parseFloat(this.isEditing ? this.vehicleToEdit.longitude : this.newVehicle.longitude);
+                return (lat >= -90 && lat <= 90) && (long >= -180 && long <= 180);
+            },
+            isConfortLevelSelected(){
+                return this.isEditing ? this.vehicleToEdit.confortLevel > 0 : this.newVehicle.confortLevel > 0;
+            },
             vehicleExists(){
-                // return this.vehicles.some(vehicle => this.newVehicle.plate === vehicle.plate);
-                return this.adesoes.some(vehicle => this.newVehicle.plate === vehicle.vei_placa);
+                return this.vehicles.some(vehicle => this.newVehicle.plate === vehicle.plate);
+                // return this.adesoes.some(vehicle => this.newVehicle.plate === vehicle.vei_placa);
             },
             getVehicleToEditIndex(){
                 return this.vehicles.findIndex(vehicle => this.vehicleToEdit.plate === vehicle.plate);
@@ -254,13 +254,13 @@ import StarRating from './StarRating.vue';
             },
 
             formatPlate() {
-                let rawValue = this.newVehicle.vei_placa.toUpperCase().replace(/[^A-Z0-9]/g, ""); // Remove tudo que não for letra ou número
+                let rawValue = this.newVehicle.plate.toUpperCase().replace(/[^A-Z0-9]/g, ""); // Remove tudo que não for letra ou número
 
                 if (rawValue.length > 3) {
                     rawValue = rawValue.replace(/^([A-Z]{3})(\d{0,4})/, "$1-$2"); // Adiciona o hífen depois de 3 letras
                 }
 
-                this.newVehicle.vei_placa = rawValue.slice(0, 8); // Garante no máximo 8 caracteres (ABC-1234)
+                this.newVehicle.plate = rawValue.slice(0, 8); // Garante no máximo 8 caracteres (ABC-1234)
             },
 
             validateForm(event){
@@ -269,21 +269,21 @@ import StarRating from './StarRating.vue';
                     form.reportValidity();
                     return;
                 }
-                // if (!this.isPlateValid)
-                //     this.showError('Placa inválida!');
-                // else if (!this.isBrandSelected)
-                //     this.showError('Selecione uma marca!');
-                // else if (!this.isYearValid)
-                //     this.showError('Ano inválido!');
-                // else if (!this.isPurposeSelected)
-                //     this.showError('Selecione um propósito de uso!');
-                // else if (!this.isLatLongValid)
-                //     this.showError('Latitude e/ou longitude inválidos!');
-                // else if (!this.isConfortLevelSelected)
-                //     this.showError('Selecione o nível de conforto!');
-                // else if(this.isEditing)
-                //     this.editVehicle();
-                // else
+                if (!this.isPlateValid)
+                    this.showError('Placa inválida!');
+                else if (!this.isBrandSelected)
+                    this.showError('Selecione uma marca!');
+                else if (!this.isYearValid)
+                    this.showError('Ano inválido!');
+                else if (!this.isPurposeSelected)
+                    this.showError('Selecione um propósito de uso!');
+                else if (!this.isLatLongValid)
+                    this.showError('Latitude e/ou longitude inválidos!');
+                else if (!this.isConfortLevelSelected)
+                    this.showError('Selecione o nível de conforto!');
+                else if(this.isEditing)
+                    this.editVehicle();
+                else
                     this.registerVehicle();
             },
 
@@ -295,40 +295,40 @@ import StarRating from './StarRating.vue';
                 }, 5000);
             },
 
-            // validateYear(event){
-            //     let year = event.target.value.replace(/\D/g, "");
+            validateYear(event){
+                let year = event.target.value.replace(/\D/g, "");
 
-            //     if (year.length > 4) {
-            //         year = year.slice(0, 4);
-            //     }
+                if (year.length > 4) {
+                    year = year.slice(0, 4);
+                }
 
-            //     if(this.isEditing)
-            //         this.vehicleToEdit.year = year;
-            //     else
-            //         this.newVehicle.year = year;
-            // },
+                if(this.isEditing)
+                    this.vehicleToEdit.year = year;
+                else
+                    this.newVehicle.year = year;
+            },
 
-            // validateLatitude(event) {
-            //     let lat = event.target.value.replace(/[^0-9.-]/g, "");
-            //     lat = lat.replace(/(?!^)-/g, "");
-            //     lat = lat.replace(/(\..*)\./g, "$1");
+            validateLatitude(event) {
+                let lat = event.target.value.replace(/[^0-9.-]/g, "");
+                lat = lat.replace(/(?!^)-/g, "");
+                lat = lat.replace(/(\..*)\./g, "$1");
 
-            //     if(this.isEditing)
-            //         this.vehicleToEdit.latitude = lat;
-            //     else
-            //         this.newVehicle.latitude = lat;
-            // },
+                if(this.isEditing)
+                    this.vehicleToEdit.latitude = lat;
+                else
+                    this.newVehicle.latitude = lat;
+            },
 
-            // validateLongitude(event) {
-            //     let long = event.target.value.replace(/[^0-9.-]/g, "");
-            //     long = long.replace(/(?!^)-/g, "");
-            //     long = long.replace(/(\..*)\./g, "$1");
+            validateLongitude(event) {
+                let long = event.target.value.replace(/[^0-9.-]/g, "");
+                long = long.replace(/(?!^)-/g, "");
+                long = long.replace(/(\..*)\./g, "$1");
 
-            //     if(this.isEditing)
-            //         this.vehicleToEdit.longitude = long;
-            //     else
-            //         this.newVehicle.longitude = long;
-            // },
+                if(this.isEditing)
+                    this.vehicleToEdit.longitude = long;
+                else
+                    this.newVehicle.longitude = long;
+            },
 
             editVehicle(){
                 const index = this.getVehicleToEditIndex;
@@ -342,12 +342,12 @@ import StarRating from './StarRating.vue';
                 }
             },
 
-            async registerVehicle(){
+            registerVehicle(){
                 if(!this.vehicleExists){
-                    // this.vehicles.push(this.newVehicle);
-                    // localStorage.setItem('vehicles', JSON.stringify(this.vehicles));
-                    this.addActivity('register', this.newVehicle.vei_placa);
-                    await this.$store.dispatch('adesoes/' + NOVA_ADESAO, this.newVehicle);
+                    this.vehicles.push(this.newVehicle);
+                    localStorage.setItem('vehicles', JSON.stringify(this.vehicles));
+                    // this.addActivity('register', this.newVehicle.vei_placa);
+                    // await this.$store.dispatch('adesoes/' + NOVA_ADESAO, this.newVehicle);
                     this.close();
                 } else{
                     this.showError('Essa placa já foi cadastrada!');
