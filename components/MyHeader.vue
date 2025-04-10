@@ -9,6 +9,7 @@
                 <div id="pages">
                     <NuxtLink to="/home" class="page">VEÍCULOS</NuxtLink>
                     <NuxtLink to="/activity-history" class="page">HISTÓRICO DE ATIVIDADES</NuxtLink>
+                    <NuxtLink to="/map" class="page">MAPA</NuxtLink>
                 </div>
             </nav>
             <div id="user-info">
@@ -148,7 +149,7 @@ import { mapGetters } from 'vuex';
     }
 
     #header-navigation{
-        width: 545px;
+        justify-content: flex-start;
     }
 
     header{
@@ -165,6 +166,7 @@ import { mapGetters } from 'vuex';
         border: 2px solid #007DF0;
         border-radius: 5px;
         width: 188px;
+        margin-right: 20px;
         background-color: #fff;
         text-decoration: none;
         align-items: center;
@@ -190,7 +192,7 @@ import { mapGetters } from 'vuex';
         color: #000;
         padding: 12px;
         border-radius: 5px;
-        margin: 0 10px;
+        margin: 0 8px;
         text-decoration: none;
         font-size: 12px;
         font-weight: 700;
@@ -253,13 +255,13 @@ import { mapGetters } from 'vuex';
         font-size: 16px;
     }
 
-    @media screen and (max-width: 665px){
+    @media screen and (max-width: 780px){
         #rl-logo{
             display: none;
         }
     }
 
-    @media screen and (max-width: 490px){
+    @media screen and (max-width: 570px){
         header, #header-navigation{
             flex-wrap: wrap;
             justify-content: center;

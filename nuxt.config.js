@@ -1,9 +1,6 @@
 export default {
   ssr: false, // Set to true for SSR
   target: 'static', // or 'server'
-  // vuetify: {
-
-  // },
   router: {
     middleware: [
       'authentication'
@@ -45,9 +42,9 @@ export default {
       src: '@/plugins/vuetify', 
       ssr: false 
     },
-    {
-      src: '@plugins/init.client',
-      ssr: false
+    { 
+      src: '@/plugins/moment', 
+      ssr: false 
     }
   ],
   loaders: {

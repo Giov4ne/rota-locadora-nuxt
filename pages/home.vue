@@ -1,5 +1,5 @@
 <template>
-    <div class="home-activity-container">
+    <div class="page-container">
         <div class="container">
             <section id="register-and-filters">
                 <button id="register-vehicle-btn" @click="openVehicleEditRegistration">Cadastrar Veículo</button>
@@ -38,6 +38,7 @@
                             <th>Modelo</th>
                             <th>Ano/Modelo</th>
                             <th>Tipo Negociação</th>
+                            <th>QR Code</th>
                             <th>Última Posição</th>
                             <th></th>
                         </tr>
@@ -51,7 +52,8 @@
                             <td>{{ vehicle.modelo_id }}</td>
                             <td>{{ vehicle.vei_ano_modelo !== null ? vehicle.vei_ano_modelo : 'Não informado' }}</td>
                             <td>{{ vehicle.tipo_negociacao !== null ? vehicle.tipo_negociacao : 'Não informado' }}</td>
-                            <td>{{ vehicle.updated !== null ? vehicle.updated : 'Sem posição' }}</td>
+                            <td>{{ vehicle.qrcode_id !== null ? vehicle.qrcode_id : 'Não informado' }}</td>
+                            <td>{{ vehicle.updated !== null ? formatDate(vehicle.updated) : 'Sem posição' }}</td>
                             <td>
                                 <div class="options-dropdown-container" ref="dropdowns">
                                     <span class="ellipsis" @click="optionsToggleDropdown(index)">...</span>
@@ -105,9 +107,10 @@ import VehicleEditRegistration from '../components/VehicleEditRegistration.vue';
 import VehicleDetails from '../components/VehicleDetails.vue';
 import MyPagination from '../components/MyPagination.vue';
 import { ADESOES } from '../utils/storeTypes/adesoes';
+import utils from '../mixins/utils';
 
     export default{
-        
+        mixins: [utils],
         name: 'home',
         components: {
             MyHeader,
@@ -144,7 +147,6 @@ import { ADESOES } from '../utils/storeTypes/adesoes';
                 vehicleToEdit: null,
                 vehicleToSeeDetails: null,
                 successMsg: '',
-
                 page: 0,
                 limit: 12,
             };
@@ -259,7 +261,6 @@ import { ADESOES } from '../utils/storeTypes/adesoes';
 
             showSuccessMsg(message) {
                 this.successMsg = message;
-
                 setTimeout(() => {
                     this.successMsg = '';
                 }, 5000);
@@ -298,10 +299,7 @@ import { ADESOES } from '../utils/storeTypes/adesoes';
         },
 
         computed: {
-            // ...mapGetters('adesoes/', ['adesoes'])
-            
             adesoes(){
-                console.log(this.$store.state.adesoes.adesoes);
                 return this.$store.state.adesoes.adesoes;
             }
         },
@@ -325,7 +323,7 @@ import { ADESOES } from '../utils/storeTypes/adesoes';
         
 
     }
-            </script>
+</script>
 
 <style>
 
@@ -633,7 +631,7 @@ import { ADESOES } from '../utils/storeTypes/adesoes';
         }
     }
 
-    @media screen and (max-width: 712px){
+    @media screen and (max-width: 870px){
         table{
             min-width: 0;
         }

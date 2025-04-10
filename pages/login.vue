@@ -97,12 +97,12 @@
 
 
                 // vuetify
-                show1: false,
-                rules: {
-                    required: value => !!value || 'Obrigatório digitar senha',
-                    min: v => v.length >= 8 || 'Mínimo 8 caracteres',
-                    emailMatch: () => (`The email and password you entered don't match`),
-                }
+                // show1: false,
+                // rules: {
+                //     required: value => !!value || 'Obrigatório digitar senha',
+                //     min: v => v.length >= 8 || 'Mínimo 8 caracteres',
+                //     emailMatch: () => (`The email and password you entered don't match`),
+                // }
             }
         },
         computed: {

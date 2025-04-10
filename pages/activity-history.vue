@@ -1,5 +1,5 @@
 <template>
-    <div class="home-activity-container">
+    <div class="page-container">
         <!-- <MyHeader></MyHeader> -->
         <div class="container">
             <section id="filters-section">
@@ -27,7 +27,7 @@
                 </ul>
                 <p v-else id="no-history-activity">Não há veículos cadastrados até o momento...</p>
             </main>
-            <MyPagination v-if="activities.length >= 10"></MyPagination>
+            <MyPagination v-if="activities.length >= 10" v-model="page" :limit="limit"></MyPagination>
         </div>
     </div>
 </template>
@@ -46,7 +46,9 @@ import MyPagination from '../components/MyPagination.vue';
             return{
                 activities: [],
                 filteredActivities: [],
-                plateInput: ''
+                plateInput: '',
+                page: 0,
+                limit: 12,
             }
         },
         methods:{
