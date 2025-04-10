@@ -29,7 +29,7 @@
     border: none;
   }
 
-  .home-activity-container{
+  .page-container{
       padding-top: 15px;
   }
 

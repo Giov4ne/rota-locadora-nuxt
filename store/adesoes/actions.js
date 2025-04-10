@@ -1,8 +1,7 @@
-import { ADESOES, NOVA_ADESAO, EXCLUIR_ADESAO } from '../../utils/storeTypes/adesoes'
+import { ADESOES } from '../../utils/storeTypes/adesoes'
 
 export default{
     [ADESOES](state, payload){
-        // console.log({ payload });
         const url = payload?.like ? `/adesoes?like=${payload.like}` : '/adesoes';
         return new Promise((resolve, reject) => {
             this.$axios.get(url, payload)
@@ -11,9 +10,9 @@ export default{
                 })
                 .catch(error => {
                     reject(new Error(error));
-                })
+                });
         });
-    },
+    }
 
     // [NOVA_ADESAO](state, payload){
     //     return new Promise((resolve, reject) => {
