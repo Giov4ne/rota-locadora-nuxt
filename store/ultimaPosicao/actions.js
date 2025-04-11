@@ -3,7 +3,7 @@ import { VEICULO } from "../../utils/storeTypes/ultimaPosicao";
 export default{
     [VEICULO](state, payload){
         return new Promise((resolve, reject) => {
-            this.$axios.get(`/ultimaPosicao/${payload}`)
+            this.$axios.get(`/ultima-posicao/${payload}`)
                 .then(response => {
                     resolve(response);
                 })

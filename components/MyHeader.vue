@@ -244,6 +244,7 @@ import { mapGetters } from 'vuex';
         box-shadow: 0 2px 4px #00000040;
         cursor: pointer;
         color: #E8363B;
+        z-index: 1;
 
         &:hover{
             background-color: #d8d8d8;

@@ -95,7 +95,7 @@ export default {
         },
         endpoints: {
           login: { url: '/login', method: 'post' },
-          // refresh: { url: '/refresh-token', method: 'post' },
+          refresh: { url: '/refresh-token', method: 'post' },
           user: { url: '/me', method: 'get' },
           logout: { url: '/logout', method: 'get' }
         }
