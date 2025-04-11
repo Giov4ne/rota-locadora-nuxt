@@ -3,58 +3,99 @@
 </template>
   
 <script>
-  import L from "leaflet";
-    import "leaflet/dist/leaflet.css";
-  
-export default {
-    name: "MapComponent",
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+
+  export default {
+    name: "MapView",
+
+    data(){
+      return {
+        map: null,
+        marker: null,
+        latitude: -26.2943,
+        longitude: -48.850236
+      }
+    },
+
     props: {
-      latitude: {
-        type: Number,
-        required: true
-      },
-      longitude: {
-        type: Number,
-        required: true
+      veiculosNoMapa: {
+        type: Array,
+        default: () => []
       },
       zoom: {
         type: Number,
-        default: 17
+        default: 16
       }
     },
-    mounted() {
-      this.initMap();
-    },
+
     methods: {
       initMap() {
         if (!this.$refs.mapContainer) return;
-  
-        const map = L.map(this.$refs.mapContainer).setView(
+        
+        this.map = L.map(this.$refs.mapContainer).setView(
           [this.latitude, this.longitude],
           this.zoom
         );
-
-        const customIcon = L.divIcon({
-            className: "custom-marker",
-            html: '<i class="fas fa-location-dot fa-2x" style="color: #007DF0; font-size: 38px; transform: translate(-5px, -5px);"></i>',
-            iconSize: [32, 32],
-            iconAnchor: [16, 32]
-        });
-  
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        
+        
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/*, {
           attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-  
-        L.marker([this.latitude, this.longitude], { icon: customIcon })
-          .addTo(map);
-      }
-    }
+          }*/).addTo(this.map);
+          // setLatLng
+
+        this.map.on('load', this.$emit('load', this.map));
+          
+      },
+        
+        reloadMarker(){
+          if(!this.marker){
+            const customIcon = L.divIcon({
+              className: "custom-marker",
+              html: `<i class="fas fa-location-dot fa-2x" style="color: #007DF0; font-size: 38px;"></i>`,
+              iconSize: [32, 32],
+              iconAnchor: [16, 32]
+            });
+            this.marker = L.marker([this.latitude, this.longitude], { icon: customIcon });
+            this.marker.addTo(this.map);
+          } else{
+            this.marker.setLatLng([this.latitude, this.longitude]);
+          }
+          this.map.setView([this.latitude, this.longitude], this.zoom);
+        }
+
+    },
+
+    mounted() {
+      this.initMap();
+      // this.reloadMarker();
+    },
+
+    watch:{
+        veiculosNoMapa(novo, velho){
+          if(novo.length){
+            novo.forEach((item) => {
+              if(this.map.hasLayer(item.marker)){
+              } else{
+                item.marker.addTo(this.map);
+              }
+              // console.log(item.marker);
+            });
+            const arrayDePosicoes = novo.map((item) => {
+              return item.marker.getLatLng();
+            })
+            this.map.fitBounds(arrayDePosicoes);
+          }
+        }
+      } 
+    
   };
-</script>
+  </script>
   
 <style scoped>
     #map {
         width: 100%;
-        height: calc(100vh - 120px);
+        height: calc(100vh - 64px);
+        z-index: 0;
     }
 </style>
