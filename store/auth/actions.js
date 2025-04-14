@@ -19,7 +19,7 @@ export default{
 
     [ME](state, payload){
         return new Promise((resolve, reject) => {
-            this.$axios.post('/me', payload)
+            this.$axios.get('/me', payload)
                 .then(response => {
                     resolve(response);
                 })
