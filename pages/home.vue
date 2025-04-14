@@ -7,7 +7,6 @@
                     <div class="dropdown-boxes">
                         <BrandsDropdown ref="brandsDropdownRef" :checkbox=true v-model="selectedBrands"></BrandsDropdown>
                     </div>
-
                     <div class="dropdown-boxes">
                         <PurposesDropdown ref="purposesDropdownRef" v-model="selectedPurpose"></PurposesDropdown>
                     </div>
@@ -17,8 +16,7 @@
                     </div>
                     <div id="search-erase">
                         <button class="search-btn" @click="loadVeiculos()">
-                            <i class="fas fa-magnifying-glass"></i>
-                            
+                            <i class="fas fa-magnifying-glass"></i>  
                         </button>
                         <button class="erase-btn" @click="erase">
                             <i class="fas fa-eraser"></i>
@@ -71,8 +69,10 @@
                         </tr>
                     </tbody>
                 </table>
-                <p v-else class="loading-msg">Carregando...</p>
-                <!-- <p v-else id="no-vehicles-msg">Nenhum veículo encontrado...</p> -->    
+                
+                <p v-else-if="!loading" class="no-vehicles-msg">Nenhum veículo encontrado.</p>
+
+                <p v-if="!adesoes.length && loading" class="loading-msg">Carregando...</p>   
             </main>
 
             
@@ -149,6 +149,7 @@ import utils from '../mixins/utils';
                 successMsg: '',
                 page: 0,
                 limit: 12,
+                loading: true
             };
         },
 
@@ -293,6 +294,8 @@ import utils from '../mixins/utils';
                     this.$store.commit('adesoes/setAdesoes', veiculos.data.data);
                 } catch{
                     this.$store.commit('adesoes/setAdesoes', []);
+                } finally{
+                    this.loading = false;
                 }
             }
 
@@ -596,13 +599,6 @@ import utils from '../mixins/utils';
         background-color: #0000008f;
         width: 100%;
         height: 100%;
-    }
-
-    #no-vehicles-msg, .loading-msg{
-        margin: 80px 20px;
-        text-align: center;
-        font-size: 18px;
-        color: #333;
     }
 
     @media screen and (max-width: 1005px){

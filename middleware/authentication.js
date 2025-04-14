@@ -10,7 +10,7 @@ export default function ({ route, redirect, $auth }) {
         localStorage.removeItem('auth._token_expiration.local');
         localStorage.removeItem('auth.strategy');
         return redirect('/login'); // Permite acesso ao login e cadastro sem estar autenticado
-    } else if (token !== 'false' && (route.path === '/login' || route.path === '/signup')) {
+    } else if (token !== 'false' && (route.path !== '/home' && route.path !== '/activity-history' && route.path !== '/map')) {
         return redirect('/home'); // Se estiver logado, não pode acessar login nem cadastro
     } else{
         $auth.fetchUser()
