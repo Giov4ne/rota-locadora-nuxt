@@ -14,6 +14,19 @@ export default {
   buildModules: [
     '@nuxtjs/fontawesome',
   ],
+  build: {
+    extend (config, { isDev, isClient }) {
+      if (isClient) {
+        config.module.rules.push({
+          test: /\.worker\.js$/,
+          use: {
+            loader: 'worker-loader'
+          },
+          exclude: /(node_modules)/
+        })
+      }
+    }
+  },
   fontawesome: {
     component: 'fa',
     icons: {

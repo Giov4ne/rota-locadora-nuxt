@@ -214,6 +214,13 @@
     background-color: #4CAF50;
   }
 
+  .no-vehicles-msg, .loading-msg{
+    margin: 80px 20px;
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+  }
+
   @media screen and (max-width: 550px){
     #login-form, #signin-form{
       width: 92%;

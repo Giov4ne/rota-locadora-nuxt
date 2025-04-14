@@ -1,13 +1,14 @@
 <template>
     <div class="map-container">
         
-        <select class="select-vehicle" v-model="idVeiculo" @change="centralizaVeiculo">
+        <select v-if="veiculosFiltrados.length" class="select-vehicle" v-model="idVeiculo" @change="centralizaVeiculo">
+            <option value="vazio" disabled selected>Procurar veículo</option>
             <option v-for="veiculo in veiculosFiltrados" :value="veiculo.id" :key="veiculo.id">
-                {{ veiculo.vei_placa }} - {{ veiculo.vei_descricao }}
+                {{ veiculo.vei_placa }} ({{ veiculo.vei_descricao }})
             </option>
         </select>
         
-        <MapView :veiculosNoMapa="veiculosFiltrados" @load="getVeiculosComUltimaPosicao" :zoom="16" />
+        <MapView :veiculosNoMapa="veiculosFiltrados" @load="getVeiculosComUltimaPosicao" :zoom="zoom" />
 
         <p v-if="loading" class="loading-msg">Carregando...</p>
         
@@ -27,12 +28,10 @@ import L from 'leaflet';
         data(){
             return {
                 veiculosComUltimaPosicao: [],
-                    // { id: 42273, placa: 'FGO-6631', descricao: 'Eduardo M' },
-                    // { id: 25215, placa: 'PRO1C14', descricao: 'Gol testando' },
-                    // { id: 25198, placa: 'PAN-9999', descricao: 'PAI ZANELLA' }
-                idVeiculo: null,
+                idVeiculo: 'vazio',
                 loading: true,
-                map: null
+                map: null,
+                zoom: 16
             }
         },
 
@@ -53,7 +52,7 @@ import L from 'leaflet';
                 try{
                     return this.$store.dispatch('ultimaPosicao/' + VEICULO, id);
                 } catch{
-                    alert('erro');
+                    alert(`Erro: não foi possível encontrar última posição do veículo com id: ${id}`);
                     // this.$store.commit('ultimaPosicao/setVeiculo', {});
                 }
             },
@@ -70,7 +69,7 @@ import L from 'leaflet';
                                     $ne: null
                                 },
                                 id: {
-                                    $in: [42273, 25215, 25198]
+                                    $in: [42273, 25215, 25198, 1074, 3479]
                                 }
                             }
                         }
@@ -96,7 +95,7 @@ import L from 'leaflet';
                                         const posicao = posicoes.find((pos) => {
                                             return pos.id === veiculo.id;
                                         })
-                                        console.log(posicao);
+                                        // console.log(posicao);
                                         return {
                                             ...veiculo,
                                             marker: L.marker([posicao.latitude, posicao.longitude])
@@ -104,10 +103,8 @@ import L from 'leaflet';
                                     })
                             });
                         });
-                    // this.$store.commit('adesoes/setAdesoes', veiculos.data.data);
                 } catch{
                     this.veiculosComUltimaPosicao = [];
-                    // this.$store.commit('adesoes/setAdesoes', []);
                 } finally{
                     this.loading = false;
                 }
@@ -117,14 +114,15 @@ import L from 'leaflet';
                 const veiculo = this.veiculosComUltimaPosicao.find((veiculo) => {
                     return veiculo.id === this.idVeiculo;
                 });
-                this.map.setView(veiculo.marker.getLatLng());
+                this.zoom = 18;
+                this.map.setView(veiculo.marker.getLatLng(), this.zoom);
             }
-        },
+        }
 
-        mounted(){
+        // mounted(){
             // this.getVeiculosComUltimaPosicao();
             // this.loadUltimaPosicaoVeiculo();
-        }
+        // }
     }
 </script>
 
@@ -141,5 +139,13 @@ import L from 'leaflet';
         cursor: pointer;
         background-color: #fff;
         padding: 8px;
+        border: 1px solid #a1a1a1;
+        border-radius: 5px;
+        box-shadow: 1px 1px 4px #5f5f5fea;
+        outline: 0;
+        font-size: 14px;
+        &:hover{
+            background-color: #ebebeb;
+        }
     }
 </style>

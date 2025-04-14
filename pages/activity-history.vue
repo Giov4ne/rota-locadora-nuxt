@@ -25,7 +25,7 @@
                         Veículo <strong>{{ activity.plate }}</strong> {{ getActivityTypeToString(activity.type) }} em {{ activity.date }} às {{ activity.time }}
                     </li>
                 </ul>
-                <p v-else id="no-history-activity">Não há veículos cadastrados até o momento...</p>
+                <p v-else id="no-history-activity">Nenhuma atividade foi registrada até o momento.</p>
             </main>
             <MyPagination v-if="activities.length >= 10" v-model="page" :limit="limit"></MyPagination>
         </div>
