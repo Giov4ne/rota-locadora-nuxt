@@ -17,7 +17,6 @@
 
 <script>
 import MapView from '../components/MapView.vue';
-import { VEICULO } from '../utils/storeTypes/ultimaPosicao';
 import L from 'leaflet';
 
     export default{
@@ -31,7 +30,13 @@ import L from 'leaflet';
                 idVeiculo: 'vazio',
                 loading: true,
                 map: null,
-                zoom: 16
+                zoom: 16,
+                customIcon: L.divIcon({
+                    className: "custom-marker",
+                    html: `<i class="fas fa-location-dot fa-2x" style="color: #007DF0; font-size: 38px;"></i>`,
+                    iconSize: [32, 32],
+                    iconAnchor: [16, 32]
+                })
             }
         },
 
@@ -50,10 +55,9 @@ import L from 'leaflet';
         methods:{
             loadUltimaPosicaoVeiculo(id){
                 try{
-                    return this.$store.dispatch('ultimaPosicao/' + VEICULO, id);
+                    return this.$store.dispatch('ultimaPosicao/VEICULO', id);
                 } catch{
                     alert(`Erro: não foi possível encontrar última posição do veículo com id: ${id}`);
-                    // this.$store.commit('ultimaPosicao/setVeiculo', {});
                 }
             },
 
@@ -95,10 +99,9 @@ import L from 'leaflet';
                                         const posicao = posicoes.find((pos) => {
                                             return pos.id === veiculo.id;
                                         })
-                                        // console.log(posicao);
                                         return {
                                             ...veiculo,
-                                            marker: L.marker([posicao.latitude, posicao.longitude])
+                                            marker: L.marker([posicao.latitude, posicao.longitude], { icon: this.customIcon })
                                         }
                                     })
                             });
@@ -118,11 +121,6 @@ import L from 'leaflet';
                 this.map.setView(veiculo.marker.getLatLng(), this.zoom);
             }
         }
-
-        // mounted(){
-            // this.getVeiculosComUltimaPosicao();
-            // this.loadUltimaPosicaoVeiculo();
-        // }
     }
 </script>
 

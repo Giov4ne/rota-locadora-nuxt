@@ -49,22 +49,6 @@ import { io } from "socket.io-client";
           this.map.on('load', this.$emit('load', this.map));
             
         },
-        
-        reloadMarker(){
-          if(!this.marker){
-            const customIcon = L.divIcon({
-              className: "custom-marker",
-              html: `<i class="fas fa-location-dot fa-2x" style="color: #007DF0; font-size: 38px;"></i>`,
-              iconSize: [32, 32],
-              iconAnchor: [16, 32]
-            });
-            this.marker = L.marker([this.latitude, this.longitude], { icon: customIcon });
-            this.marker.addTo(this.map);
-          } else{
-            this.marker.setLatLng([this.latitude, this.longitude]);
-          }
-          this.map.setView([this.latitude, this.longitude], this.zoom);
-        },
 
         initConnection(){
           const url = "https://websocket.rotaexata.com.br:444";
@@ -78,37 +62,19 @@ import { io } from "socket.io-client";
           });
 
           this.ws.on('connect', () => {
-            console.log('testando conexão');
             this.ws.emit('join', {
               userId: this.$auth.user.usuario.id,
               companyId: this.$auth.user.usuario.empresa_id
             });
-
-            // setTimeout(()=>{
-            //   console.log('posições antigas');
-            //   this.veiculos.forEach((veiculo)=>{
-            //     console.log(veiculo.marker.getLatLng().lat);
-            //     veiculo.marker.setLatLng([40, 40])
-            //   })
-            //   console.log('posições novas');
-            //   this.veiculos.forEach((veiculo)=>{
-            //     console.log(veiculo.marker.getLatLng().lat);
-            //   })
-            // }, 3000);
           });
 
           this.ws.on('message', (message) => {
             this.veiculos = this.veiculos.map((veiculo) => {
                 if(veiculo.id === message.message.adesao_id){
                   veiculo.marker.setLatLng([message.message.latitude, message.message.longitude]);
-                  console.log('mensagem recebida');
-                  // veiculo.latitude = message.message.latitude;
-                  // veiculo.longitude = message.message.longitude;
                 }
                 return veiculo;
             })
-            
-          
           })
         }
 
@@ -117,7 +83,6 @@ import { io } from "socket.io-client";
     mounted() {
       this.initMap();
       this.initConnection();
-      // this.reloadMarker();
     },
 
     beforeDestroy(){

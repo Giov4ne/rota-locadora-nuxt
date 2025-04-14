@@ -73,8 +73,7 @@ import { mapGetters } from 'vuex';
         name: 'MyHeader',
         data(){
             return{
-                exitIsOpen: false,
-                // username: ''
+                exitIsOpen: false
             }
         },
 
@@ -84,7 +83,6 @@ import { mapGetters } from 'vuex';
             },
 
             async logout(){
-                // localStorage.removeItem('loggedUser');
                 await this.$auth.logout()
                     .then((response) => {
                         console.log(response)
@@ -94,41 +92,13 @@ import { mapGetters } from 'vuex';
                         console.log(error)
                     })
             }
-
-            // async loadUser(){
-            // }
         },
         
         computed:{
-            // ...mapGetters('auth', ['user']),
-
             username(){
-                // console.log('CONSOLE_HEADER', this.$store.state);
-                // return 'ola mundo';
                 return this.$store.state.auth.user.usuario.nome
             }
-
-            // getUsername(){
-            //     // return this.$store.state.auth.user.name;
-            //     // if(this.username)
-            //         // return this.username;
-            // return this.username !== '' ? this.username : 'Usuário';
-            // }
         }
-    
-        // async fetch(){
-        //     await this.$auth.fetchUser()
-        //         .then((response) => {
-        //             this.username = response.data.session.usuario.nome
-        //         })
-        //         .catch((error) => {
-        //             console.log(error);
-        //         })
-        // }
-
-        // mounted(){
-        //     this.loadUser();
-        // }
     }
 </script>
 

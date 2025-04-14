@@ -92,8 +92,6 @@
             ></VehicleDetails>
 
             <MyPagination v-if="adesoes.length" v-model="page" :limit="limit"></MyPagination>
-            <!-- <MyPagination v-if="adesoes.length >= 10"></MyPagination> -->
-            <!-- <MyPagination v-if="filteredVehicles.length >= 10"></MyPagination> -->
         </div>
         <span v-if="successMsg !== ''" class="success-message">{{ successMsg }}</span>
     </div>
@@ -106,7 +104,6 @@ import PurposesDropdown from '../components/PurposesDropdown.vue';
 import VehicleEditRegistration from '../components/VehicleEditRegistration.vue';
 import VehicleDetails from '../components/VehicleDetails.vue';
 import MyPagination from '../components/MyPagination.vue';
-import { ADESOES } from '../utils/storeTypes/adesoes';
 import utils from '../mixins/utils';
 
     export default{
@@ -269,7 +266,7 @@ import utils from '../mixins/utils';
 
             async loadVeiculos(){
                 try{
-                    const veiculos = await this.$store.dispatch('adesoes/' + ADESOES, {
+                    const veiculos = await this.$store.dispatch('adesoes/ADESOES', {
                         params: {
                             where: {
                                 ...(this.selectedBrands.length && {
