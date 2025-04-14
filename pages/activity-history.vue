@@ -1,6 +1,5 @@
 <template>
     <div class="page-container">
-        <!-- <MyHeader></MyHeader> -->
         <div class="container">
             <section id="filters-section">
                 <div class="custom-field">
