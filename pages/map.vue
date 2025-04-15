@@ -2,7 +2,7 @@
     <div class="map-container">
         
         <select v-if="veiculosFiltrados.length" class="select-vehicle" v-model="idVeiculo" @change="centralizaVeiculo">
-            <option value="vazio" disabled selected>Procurar veículo</option>
+            <option value="vazio" disabled selected>Localizar veículo</option>
             <option v-for="veiculo in veiculosFiltrados" :value="veiculo.id" :key="veiculo.id">
                 {{ veiculo.vei_placa }} ({{ veiculo.vei_descricao }})
             </option>
